@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
         <meta charset="utf-8">
-        <title>Lucas's 部落格</title>
+        <title>django基本介紹</title>
         <link rel="stylesheet" href="/theme/css/main.css">
                 <link href="/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Lucas's 部落格 Atom Feed" />
                 
@@ -15,16 +15,19 @@
         <header id="banner" class="body">
                 <h1><a href="/">Lucas's 部落格 </a></h1>
                 <nav><ul>
-                                                                                    <li ><a href="/category/python.html">Python</a></li>
+                                                                                    <li class="active"><a href="/category/python.html">Python</a></li>
                                                 </ul></nav>
         </header><!-- /#banner -->
-                
-            
+        <section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="/djangoji-ben-jie-shao.html" rel="bookmark"
+           title="Permalink to django基本介紹">django基本介紹</a></h1>
+          </header>
 
-                            <aside id="featured" class="body">
-                <article>
-                    <h1 class="entry-title"><a href="/djangoji-ben-jie-shao.html">django基本介紹</a></h1> 
-                    <footer class="post-info">
+    <div class="entry-content">
+      <footer class="post-info">
         <abbr class="published" title="2013-08-17T23:49:00">
                 Sat 17 August 2013
         </abbr>
@@ -34,7 +37,7 @@
         </address>
         <p>In <a href="/category/python.html">Python</a>. </p>
 <p>tags: <a href="/tag/django.html">Django</a><a href="/tag/ubuntu.html">Ubuntu</a></p>
-</footer><!-- /.post-info --><p>趁著專題結束，趕快把Django的內容寫下一些紀錄，方便自己以後要用的時候可以查找，也因為雖然他的文件很完善了XD，但是因為是英文比較難閱讀，而且也需要許多實作來驗證想法，因此想要寫些筆記把心得跟細節記錄下來。</p>
+</footer><!-- /.post-info -->      <p>趁著專題結束，趕快把Django的內容寫下一些紀錄，方便自己以後要用的時候可以查找，也因為雖然他的文件很完善了XD，但是因為是英文比較難閱讀，而且也需要許多實作來驗證想法，因此想要寫些筆記把心得跟細節記錄下來。</p>
 <p>需要知道Django在Ubuntu上如何安裝與基本的運行，請參照<a href="http://lucaswei.blogspot.tw/2012/01/ubuntu-django.html">這篇</a></p>
 <h2>首先</h2>
 <p>在command line鍵入</p>
@@ -109,42 +112,12 @@ Development server is running at http://127.0.0.1:8000/</p>
 
 <p>如何挑選所在的時區可以參照<a href="http://en.wikipedia.org/wiki/List_of_tz_zones_by_name">wiki</a></p>
 <h2>urls.py</h2>
-<p>整個專案中，用來設定對於網站的request應該開啟哪個頁面的重要設定檔案，寫好網站mapping的pattern後，之後的request都會根據此份檔案。</p>                </article>
-                            </aside><!-- /#featured -->
-                            <section id="content" class="body">
-                    <h1>Other articles</h1>
-                    <hr />
-                    <ol id="posts-list" class="hfeed">
-                                                
-
-                 
-                        <li><article class="hentry">    
-                <header>
-                    <h1><a href="/my-super-post.html" rel="bookmark"
-                           title="Permalink to My super title">My super title</a></h1>
-                </header>
-                
-                <div class="entry-content">
-                <footer class="post-info">
-        <abbr class="published" title="2010-12-03T10:20:00">
-                Fri 03 December 2010
-        </abbr>
-
-                <address class="vcard author">
-                By <a class="url fn" href="/author/alexis-metaireau.html">Alexis Metaireau</a>
-        </address>
-        <p>In <a href="/category/python.html">Python</a>. </p>
-<p>tags: <a href="/tag/pelican.html">pelican</a><a href="/tag/publishing.html">publishing</a></p>
-</footer><!-- /.post-info -->                <p>Short version for index and feeds</p>
-                <a class="readmore" href="/my-super-post.html">read more</a>
-                                </div><!-- /.entry-content -->
-            </article></li>
-                            </ol><!-- /#posts-list -->
-                            <p class="paginator">
-        Page 1 / 1
-    </p>
-                        </section><!-- /#content -->
-                    <section id="extras" class="body">
+<p>整個專案中，用來設定對於網站的request應該開啟哪個頁面的重要設定檔案，寫好網站mapping的pattern後，之後的request都會根據此份檔案。</p>
+    </div><!-- /.entry-content -->
+    
+  </article>
+</section>
+        <section id="extras" class="body">
                         <div class="blogroll">
                         <h2>blogroll</h2>
                         <ul>
