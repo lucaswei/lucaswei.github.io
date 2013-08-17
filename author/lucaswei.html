@@ -16,6 +16,7 @@
                 <h1><a href="/">Lucas's 部落格 </a></h1>
                 <nav><ul>
                                                                                     <li ><a href="/category/python.html">Python</a></li>
+                                    <li ><a href="/category/sql.html">SQL</a></li>
                                                 </ul></nav>
         </header><!-- /#banner -->
                 
@@ -34,7 +35,8 @@
         </address>
         <p>In <a href="/category/python.html">Python</a>. </p>
 <p>tags: <a href="/tag/django.html">Django</a><a href="/tag/ubuntu.html">Ubuntu</a></p>
-</footer><!-- /.post-info --><p>趁著專題結束，趕快把Django的內容寫下一些紀錄，方便自己以後要用的時候可以查找，也因為雖然他的文件很完善了XD，但是因為是英文比較難閱讀，而且也需要許多實作來驗證想法，因此想要寫些筆記把心得跟細節記錄下來。</p>
+</footer><!-- /.post-info --><p>但是因為是英文比較難閱讀，而且也需要許多實作來驗證想法，因此想要寫些筆記把心得跟細節記錄下來。</p>
+<p>趁著專題結束，趕快把Django的內容寫下一些紀錄，方便自己以後要用的時候可以查找，也因為雖然他的文件很完善了XD，但是因為是英文比較難閱讀，而且也需要許多實作來驗證想法，因此想要寫些筆記把心得跟細節記錄下來。</p>
 <p>需要知道Django在Ubuntu上如何安裝與基本的運行，請參照<a href="http://lucaswei.blogspot.tw/2012/01/ubuntu-django.html">這篇</a></p>
 <h2>首先</h2>
 <p>在command line鍵入</p>
@@ -110,11 +112,63 @@ Development server is running at http://127.0.0.1:8000/</p>
 <p>如何挑選所在的時區可以參照<a href="http://en.wikipedia.org/wiki/List_of_tz_zones_by_name">wiki</a></p>
 <h2>urls.py</h2>
 <p>整個專案中，用來設定對於網站的request應該開啟哪個頁面的重要設定檔案，寫好網站mapping的pattern後，之後的request都會根據此份檔案。</p>                </article>
-                                    <p class="paginator">
+                            </aside><!-- /#featured -->
+                            <section id="content" class="body">
+                    <h1>Other articles</h1>
+                    <hr />
+                    <ol id="posts-list" class="hfeed">
+                                                
+
+                 
+                        <li><article class="hentry">    
+                <header>
+                    <h1><a href="/setting_django_on_apache_server.html" rel="bookmark"
+                           title="Permalink to setting_django_on_apache_server">setting_django_on_apache_server</a></h1>
+                </header>
+                
+                <div class="entry-content">
+                <footer class="post-info">
+        <abbr class="published" title="2013-08-17T23:50:00">
+                Sat 17 August 2013
+        </abbr>
+
+                <address class="vcard author">
+                By <a class="url fn" href="/author/lucaswei.html">LucasWei</a>
+        </address>
+        <p>In <a href="/category/python.html">Python</a>. </p>
+<p>tags: <a href="/tag/django.html">Django</a><a href="/tag/ubuntu.html">Ubuntu</a></p>
+</footer><!-- /.post-info -->                <p>如果有在ubuntu上架設過LAMP的應該都知道，其實就是幾個指令，設定好密碼，還可以裝個phpmyadmin來管理資料庫，他的方便性大大降低了他的門檻，本著如此方便的精神，我覺得「安裝Django應該也很簡單吧？」就開始這段錯誤的過程，因為python不算是native支援網頁顯示的，使用一些module，或是使用以前CGI的方式來讓apache驅動他，外加上Django其實是包好好的Framework，所以在設定上就有這麼不人性點。所以，經過這麼多波折，我決定把這些過程記錄下來XD。</p>
+                <a class="readmore" href="/setting_django_on_apache_server.html">read more</a>
+                                </div><!-- /.entry-content -->
+            </article></li>
+                            
+
+                 
+                        <li><article class="hentry">    
+                <header>
+                    <h1><a href="/sql-prepare-statement.html" rel="bookmark"
+                           title="Permalink to SQL prepare statement">SQL prepare statement</a></h1>
+                </header>
+                
+                <div class="entry-content">
+                <footer class="post-info">
+        <abbr class="published" title="2013-08-17T23:49:00">
+                Sat 17 August 2013
+        </abbr>
+
+                <address class="vcard author">
+                By <a class="url fn" href="/author/lucaswei.html">LucasWei</a>
+        </address>
+        <p>In <a href="/category/sql.html">SQL</a>. </p>
+<p>tags: <a href="/tag/sql.html">SQL</a><a href="/tag/ubuntu.html">Ubuntu</a></p>
+</footer><!-- /.post-info -->                
+                <a class="readmore" href="/sql-prepare-statement.html">read more</a>
+                                </div><!-- /.entry-content -->
+            </article></li>
+                            </ol><!-- /#posts-list -->
+                            <p class="paginator">
         Page 1 / 1
     </p>
-                            </aside><!-- /#featured -->
-                                                </ol><!-- /#posts-list -->
                         </section><!-- /#content -->
                     <section id="extras" class="body">
                         <div class="blogroll">

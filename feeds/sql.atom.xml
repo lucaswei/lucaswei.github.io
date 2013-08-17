@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Lucas's 部落格</title><link href="/" rel="alternate"></link><link href="/feeds/sql.atom.xml" rel="self"></link><id>/</id><updated>2013-08-17T23:49:00+08:00</updated><entry><title>SQL prepare statement</title><link href="/sql-prepare-statement.html" rel="alternate"></link><updated>2013-08-17T23:49:00+08:00</updated><author><name>LucasWei</name></author><id>tag:,2013-08-17:sql-prepare-statement.html</id><summary type="html">&lt;p&gt;今天在寫程式的時候意外的看到一段SQL  &lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;    SELECT token FROM oauth_tokens WHERE userID = ? LIMIT 1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;而其中的問號引起了我的注意，因為沒有看到&lt;code&gt;userID&lt;/code&gt;在程式中出現，所以就查了一下SQL中問號的功用，後來在&lt;a href="http://stackoverflow.com/questions/3727688/what-does-a-question-mark-represent-in-sql-queries"&gt;stackover裡面的這篇&lt;/a&gt;好到答案，才發現他其實是一個好習慣，所以就順便筆記下來了&lt;/p&gt;
+
+&lt;h4&gt;問號的功能，是用來變數化SQL查詢&lt;/h4&gt;
+
+&lt;p&gt;他一種安全的作法用來取代原來的寫法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;    ODBCCommand cmd = new ODBCCommand("SELECT thingA FROM tableA WHERE thingB = 7")
+    result = cmd.Execute()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;這個寫法在&lt;code&gt;thingB&lt;/code&gt;為固定值的時候沒有什麼問題，但是當你需要動態載入變數的時候，他就會需要寫成這樣（底下的方法是不建議的）&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;    string s = getStudentName()
+    cmd.CommandText = "SELECT * FROM students WHERE (name = '" + s + "')"
+    cmd.Execute()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;我們就很直覺的使用字串串接的方式來將變數整合成一句SQL，但是這樣會面臨&lt;code&gt;SQL injection&lt;/code&gt;的危險，因為當你要寫入的變數，是來自於你不信任的第三方&lt;em&gt;（不論是使用者、或者是hacker）&lt;/em&gt;都有可能串接到無法預期的文字，好一點只是SQL statement Error，但是如果對方傳入設計過的字串，例如&lt;code&gt;Robert'); DROP TABLE students; --&lt;/code&gt;，則結果會...&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;    SELECT* FROM students WHERE (name = Robert');
+    DROP TABLE students;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;就悲劇了，當然你可能會覺得他怎麼知道你的TABLE Name那又是另外一回事了.XD&lt;/p&gt;
+
+&lt;h4&gt;所以&lt;/h4&gt;
+
+&lt;p&gt;應該改用這種方式，除了程式有比較好的可讀性以外，還可以事先過濾使用者輸入的字串&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;    ODBCCommand cmd = new ODBCCommand("SELECT thingA FROM tableA WHERE thingB = ?")
+    cmd.Parameters.Add(7)
+    result = cmd.Execute()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;當然你也可以使用&lt;a href="http://php.net/manual/en/book.pdo.php"&gt;php PDO&lt;/a&gt;的方式來寫入&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;    $query = 'SELECT token FROM oauth_tokens WHERE userID = ? LIMIT 1';
+    $stmt = $this-&amp;gt;pdo-&amp;gt;prepare($query);
+    $stmt-&amp;gt;execute(array($this-&amp;gt;userID));
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;都是一種好習慣也是一種好方法:D&lt;/p&gt;</summary><category term="SQL"></category><category term="Ubuntu"></category></entry></feed>

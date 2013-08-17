@@ -1,5 +1,149 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Lucas's 部落格</title><link href="/" rel="alternate"></link><link href="/feeds/python.atom.xml" rel="self"></link><id>/</id><updated>2013-08-17T23:49:00+08:00</updated><entry><title>django基本介紹</title><link href="/djangoji-ben-jie-shao.html" rel="alternate"></link><updated>2013-08-17T23:49:00+08:00</updated><author><name>LucasWei</name></author><id>tag:,2013-08-17:djangoji-ben-jie-shao.html</id><summary type="html">&lt;p&gt;趁著專題結束，趕快把Django的內容寫下一些紀錄，方便自己以後要用的時候可以查找，也因為雖然他的文件很完善了XD，但是因為是英文比較難閱讀，而且也需要許多實作來驗證想法，因此想要寫些筆記把心得跟細節記錄下來。&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Lucas's 部落格</title><link href="/" rel="alternate"></link><link href="/feeds/python.atom.xml" rel="self"></link><id>/</id><updated>2013-08-17T23:50:00+08:00</updated><entry><title>setting_django_on_apache_server</title><link href="/setting_django_on_apache_server.html" rel="alternate"></link><updated>2013-08-17T23:50:00+08:00</updated><author><name>LucasWei</name></author><id>tag:,2013-08-17:setting_django_on_apache_server.html</id><summary type="html">&lt;p&gt;如果有在ubuntu上架設過LAMP的應該都知道，其實就是幾個指令，設定好密碼，還可以裝個phpmyadmin來管理資料庫，他的方便性大大降低了他的門檻，本著如此方便的精神，我覺得「安裝Django應該也很簡單吧？」就開始這段錯誤的過程，因為python不算是native支援網頁顯示的，使用一些module，或是使用以前CGI的方式來讓apache驅動他，外加上Django其實是包好好的Framework，所以在設定上就有這麼不人性點。所以，經過這麼多波折，我決定把這些過程記錄下來XD。&lt;/p&gt;
+&lt;h1&gt;環境設定&lt;/h1&gt;
+&lt;p&gt;首先，你需要
+1. 安裝server，並且安裝wsgi的module&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;    &lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;apt&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="n"&gt;apache2&lt;/span&gt; &lt;span class="n"&gt;libapache2&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;mod&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;wsgi&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;安裝&lt;a href="http://www.openfoundry.org/tw/tech-column/8536-introduction-of-python-extension-management-tools"&gt;python pip&lt;/a&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;apt&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="n"&gt;python&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;setuptools&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;最後，再用pip安裝Django，之後的問題就隨之而來了（誤&lt;/p&gt;
+&lt;p&gt;sudo pip install django&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;之後，在你想要撰寫的目錄下，新增一個資料夾，用來管理之後的程式（我是在家目錄底下新增/home/lucas/django）&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;    &lt;span class="n"&gt;mkdir&lt;/span&gt; &lt;span class="o"&gt;~/&lt;/span&gt;&lt;span class="n"&gt;django&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h1&gt;IP設定&lt;/h1&gt;
+&lt;p&gt;在hosts中新增幾個IP&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;vi /etc/hosts&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="mf"&gt;127.0.0.1&lt;/span&gt;   &lt;span class="n"&gt;localhost&lt;/span&gt;
+&lt;span class="mf"&gt;127.0.0.2&lt;/span&gt;   &lt;span class="n"&gt;wsgi&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;djangoserver&lt;/span&gt;
+&lt;span class="mf"&gt;127.0.0.3&lt;/span&gt;   &lt;span class="n"&gt;hello&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;djangoserver&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h1&gt;測試WSGI是否可以執行&lt;/h1&gt;
+&lt;p&gt;創建資料夾&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;mkdir ~/django/myapp&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;新增python的應用程式&lt;code&gt;wsgi.app&lt;/code&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;vi ~/django/myapp/wsgi.app&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;    &lt;span class="n"&gt;def&lt;/span&gt; &lt;span class="n"&gt;application&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;environ&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;start_response&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+        &lt;span class="n"&gt;status&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="mi"&gt;200&lt;/span&gt; &lt;span class="n"&gt;OK&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;
+        &lt;span class="n"&gt;output&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;Hello&lt;/span&gt; &lt;span class="n"&gt;World&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;
+
+        &lt;span class="n"&gt;response_headers&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[(&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;Content&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;type&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;text&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;plain&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+                            &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;Content&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;Length&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;str&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;len&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;output&lt;/span&gt;&lt;span class="p"&gt;)))]&lt;/span&gt;
+        &lt;span class="n"&gt;start_response&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;status&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;response_headers&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;output&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;新增apache的設定&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;sudo vi /etc/apache2/sites-available/wsgi&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;    &lt;span class="nt"&gt;&amp;lt;VirtualHost&lt;/span&gt; &lt;span class="err"&gt;*:80&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+
+        ServerName wsgi.djangoserver
+        DocumentRoot /home/lucas/django
+
+        &lt;span class="nt"&gt;&amp;lt;Directory&lt;/span&gt; &lt;span class="err"&gt;/home/lucas/django&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+            Order allow,deny
+            Allow from all
+        &lt;span class="nt"&gt;&amp;lt;/Directory&amp;gt;&lt;/span&gt;
+
+        WSGIScriptAlias / /home/lucas/django/myapp/wsgi.app         
+    &lt;span class="nt"&gt;&amp;lt;/VirtualHost&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;將設定檔生效&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;sudo a2ensite
+  sudo service apache2 reload&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;測試你的wsgi是否有效
+&lt;a href="http://wsgi.djangoserver"&gt;http://wsgi.djangoserver&lt;/a&gt;如果沒有看到&lt;code&gt;Hello World!&lt;/code&gt;表示wsgi的設定就有問題了，可能需要先完成這個步驟，才可以繼續設定你的環境。&lt;/p&gt;
+&lt;h1&gt;測試Django是否可以安裝&lt;/h1&gt;
+&lt;p&gt;開啟一個Django的project&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;mkdir ~/django
+  python django-admin.py mysite&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;設定一個網站的wsgi file&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;mkdir ~/django/apache
+  vi ~/django/apache/django.wsgi&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;編輯&lt;code&gt;django.wsgi&lt;/code&gt;的內容&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;import&lt;/span&gt; &lt;span class="n"&gt;os&lt;/span&gt;
+&lt;span class="n"&gt;import&lt;/span&gt; &lt;span class="n"&gt;sys&lt;/span&gt;
+
+&lt;span class="n"&gt;path&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;srv&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;www&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;
+&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;path&lt;/span&gt; &lt;span class="n"&gt;not&lt;/span&gt; &lt;span class="n"&gt;in&lt;/span&gt; &lt;span class="n"&gt;sys&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+    &lt;span class="n"&gt;sys&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;insert&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;srv&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;www&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;environ&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;DJANGO_SETTINGS_MODULE&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;hello&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;settings&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;
+
+&lt;span class="n"&gt;import&lt;/span&gt; &lt;span class="n"&gt;django&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;core&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;handlers&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;wsgi&lt;/span&gt;
+&lt;span class="n"&gt;application&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;django&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;core&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;handlers&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;wsgi&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;WSGIHandler&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;新增一個apache site&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;sudo vi /etc/apache2/site-available/hello&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;編輯&lt;code&gt;hello&lt;/code&gt;的內容&lt;/p&gt;
+&lt;p&gt;&lt;VirtualHost *:80&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nb"&gt;ServerName&lt;/span&gt; &lt;span class="nx"&gt;hello.djangoserver&lt;/span&gt;
+&lt;span class="nb"&gt;DocumentRoot&lt;/span&gt; &lt;span class="p"&gt;/&lt;/span&gt;&lt;span class="nx"&gt;srv&lt;/span&gt;&lt;span class="p"&gt;/&lt;/span&gt;&lt;span class="nx"&gt;www&lt;/span&gt;&lt;span class="p"&gt;/&lt;/span&gt;&lt;span class="nx"&gt;hello&lt;/span&gt;
+
+&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;Directory&lt;/span&gt; &lt;span class="p"&gt;/&lt;/span&gt;&lt;span class="nx"&gt;srv&lt;/span&gt;&lt;span class="p"&gt;/&lt;/span&gt;&lt;span class="nx"&gt;www&lt;/span&gt;&lt;span class="p"&gt;/&lt;/span&gt;&lt;span class="nx"&gt;hello&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class="k"&gt;Order&lt;/span&gt; &lt;span class="nx"&gt;allow&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="nx"&gt;deny&lt;/span&gt;
+    &lt;span class="nx"&gt;Allow&lt;/span&gt; &lt;span class="nb"&gt;from&lt;/span&gt; &lt;span class="kc"&gt;all&lt;/span&gt;
+&lt;span class="o"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="nx"&gt;Directory&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+
+&lt;span class="nx"&gt;WSGIDaemonProcess&lt;/span&gt; &lt;span class="nx"&gt;hello.djangoserver&lt;/span&gt; &lt;span class="n"&gt;processes&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt; &lt;span class="n"&gt;threads&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;15&lt;/span&gt; &lt;span class="nx"&gt;display&lt;/span&gt;&lt;span class="na"&gt;-name&lt;/span&gt;&lt;span class="o"&gt;=%&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="k"&gt;GROUP&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="nx"&gt;WSGIProcessGroup&lt;/span&gt; &lt;span class="nx"&gt;hello.djangoserver&lt;/span&gt;
+
+&lt;span class="nx"&gt;WSGIScriptAlias&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="p"&gt;/&lt;/span&gt;&lt;span class="nx"&gt;srv&lt;/span&gt;&lt;span class="p"&gt;/&lt;/span&gt;&lt;span class="nx"&gt;www&lt;/span&gt;&lt;span class="p"&gt;/&lt;/span&gt;&lt;span class="nx"&gt;hello&lt;/span&gt;&lt;span class="p"&gt;/&lt;/span&gt;&lt;span class="nx"&gt;apache&lt;/span&gt;&lt;span class="p"&gt;/&lt;/span&gt;&lt;span class="nx"&gt;django.wsgi&lt;/span&gt;
+
+&lt;span class="o"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="nx"&gt;VirtualHost&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;啟動apache site&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;sudo a2ensite hello
+  sudo /etc/init.d/apache2 reload&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;使用瀏覽器啟動&lt;a href="http://hello.djangoserver"&gt;http://hello.djangoserver&lt;/a&gt;你就會看到歡迎頁面了&lt;/p&gt;
+&lt;p&gt;參考：
+&lt;a href="http://blog.stannard.net.au/2010/12/11/installing-django-with-apache-and-mod_wsgi-on-ubuntu-10-04/"&gt;Installing Django with Apache and mod_wsgi on Ubuntu 10.04&lt;/a&gt;
+&lt;a href="http://library.linode.com/frameworks/django-apache-mod-wsgi/ubuntu-10.04-lucid#sph_configure-django-applications-for-wsgi"&gt;Django, Apache and mod_wsgi on Ubuntu 10.04 (Lucid)&lt;/a&gt;&lt;/p&gt;</summary><category term="Django"></category><category term="Ubuntu"></category></entry><entry><title>django基本介紹</title><link href="/djangoji-ben-jie-shao.html" rel="alternate"></link><updated>2013-08-17T23:49:00+08:00</updated><author><name>LucasWei</name></author><id>tag:,2013-08-17:djangoji-ben-jie-shao.html</id><summary type="html">&lt;p&gt;但是因為是英文比較難閱讀，而且也需要許多實作來驗證想法，因此想要寫些筆記把心得跟細節記錄下來。&lt;/p&gt;
+&lt;p&gt;趁著專題結束，趕快把Django的內容寫下一些紀錄，方便自己以後要用的時候可以查找，也因為雖然他的文件很完善了XD，但是因為是英文比較難閱讀，而且也需要許多實作來驗證想法，因此想要寫些筆記把心得跟細節記錄下來。&lt;/p&gt;
 &lt;p&gt;需要知道Django在Ubuntu上如何安裝與基本的運行，請參照&lt;a href="http://lucaswei.blogspot.tw/2012/01/ubuntu-django.html"&gt;這篇&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;首先&lt;/h2&gt;
 &lt;p&gt;在command line鍵入&lt;/p&gt;
