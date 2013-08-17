@@ -2,11 +2,10 @@
 <html lang="zh-TW">
 <head>
         
-        <title>Lucas's 部落格</title>
+        <title>Lucas's 部落格 - xclip</title>
         <meta charset="utf-8" />
                 <link href="/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Lucas's 部落格 Full Atom Feed" />
-                                                <link href="/feeds/sql.atom.xml" type="application/atom+xml" rel="alternate" title="Lucas's 部落格 Categories Atom Feed" />
-                                
+                                                                
 
         <!-- Mobile viewport optimized: j.mp/bplateviewport -->
         <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1">
@@ -46,7 +45,7 @@
             </div>
 
           <section id="content">
-<h2>Articles in the SQL category</h2>
+
 
 
    <div class="row">
@@ -55,20 +54,57 @@
         <div class="eleven columns">
 		         <ol id="post-list">
 								        <li><article class="hentry">
-				                <header> <h2 class="entry-title"><a href="/sql-prepare-statement.html" rel="bookmark" title="Permalink to SQL prepare statement">SQL prepare statement</a></h2> </header>
+				                <header> <h2 class="entry-title"><a href="/xclip-hao-yong-de-terminal-filejian-tie-gong-ju.html" rel="bookmark" title="Permalink to xclip-好用的terminal file剪貼工具">xclip-好用的terminal file剪貼工具</a></h2> </header>
 				                <footer class="post-info">
-				                    <abbr class="published" title="2013-08-17T23:49:00"> Sat 17 August 2013 </abbr>
+				                    <abbr class="published" title="2013-08-17T23:51:00"> Sat 17 August 2013 </abbr>
 				                    <address class="vcard author">By <a class="url fn" href="/author/lucaswei.html">LucasWei</a></address>				                </footer><!-- /.post-info -->
-				                <div class="entry-content">  </div><!-- /.entry-content -->
+				                <div class="entry-content"> <p>如果常使用vim編輯檔案可能會遇到一個問題，</p>
+<blockquote>
+<p>如果想要將某個檔案的內容複製到其他地方要怎麼辦？</p>
+</blockquote>
+<p>因為vim是使用終端機內的文字編排，所以即使是使用滑鼠游標選取之後在貼上，難免會有許多邊界偵測的問題，以及複製到不必要的字元，因此這個時候還是需要使用GUI的編輯器（EX:geditor）來開啟並且複製。</p>
+<p>為了減少這方面的不方便，ubuntu上有個黏貼管理的程式-<strong>xclip</strong></p>
+<h3>安裝</h3>
+<div class="highlight"><pre><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">xclip</span>
+</pre></div>
 
-								<div class="medium primary btn"><a href="/sql-prepare-statement.html" rel="bookmark" title="Permalink to SQL prepare statement">Read more <i class="icon-arrow-right"></i></a></div>
+
+<p>or</p>
+<p>前往<a href="http://sourceforge.net/projects/xclip/">網站</a>下載</p>
+<h3>用法</h3>
+<h4>終端機內</h4>
+<p>將檔案pipe到終端機的buffer內，</p>
+<div class="highlight"><pre><span class="n">cat</span> <span class="n">my_file</span><span class="p">.</span><span class="n">md</span> <span class="o">|</span><span class="n">xclip</span>
+</pre></div>
+
+
+<p>如此會將需要複製的內容複製到x buffer內，等待下次需要使用的時候</p>
+<div class="highlight"><pre><span class="n">xclip</span> <span class="o">-</span><span class="n">o</span>
+</pre></div>
+
+
+<p>可以配合其他功能使用，例如：</p>
+<p>丟到另外一份檔案中</p>
+<div class="highlight"><pre><span class="n">xclip</span> <span class="o">-</span><span class="n">o</span> <span class="o">&gt;</span><span class="n">output</span><span class="p">.</span><span class="n">md</span>
+</pre></div>
+
+
+<p>使用grep尋找行內關鍵字</p>
+<div class="highlight"><pre><span class="n">xclip</span> <span class="o">-</span><span class="n">o</span> <span class="o">|</span><span class="n">grep</span> <span class="o">^</span><span class="n">happy</span>
+</pre></div>
+
+
+<h4>如果是想要儲存在GUI的暫存中</h4>
+<div class="highlight"><pre><span class="n">cat</span> <span class="n">my_file ...</span></pre></div> </div><!-- /.entry-content -->
+
+								<div class="medium primary btn"><a href="/xclip-hao-yong-de-terminal-filejian-tie-gong-ju.html" rel="bookmark" title="Permalink to xclip-好用的terminal file剪貼工具">Read more <i class="icon-arrow-right"></i></a></div>
 
 
 
 								<div class="row tag-row">
 																			<span>Tagged as : </span>
-																					<a class="danger label" href="/tag/sql.html">SQL</a>
-																					<a class="danger label" href="/tag/ubuntu.html">Ubuntu</a>
+																					<a class="danger label" href="/tag/xclip.html">xclip</a>
+																					<a class="danger label" href="/tag/ubuntu.html">ubuntu</a>
 																											</div>
 
 

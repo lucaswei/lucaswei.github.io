@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Lucas's 部落格</title><link href="/" rel="alternate"></link><link href="/feeds/tool.atom.xml" rel="self"></link><id>/</id><updated>2013-08-17T23:51:00+08:00</updated><entry><title>xclip-好用的terminal file剪貼工具</title><link href="/xclip-hao-yong-de-terminal-filejian-tie-gong-ju.html" rel="alternate"></link><updated>2013-08-17T23:51:00+08:00</updated><author><name>LucasWei</name></author><id>tag:,2013-08-17:xclip-hao-yong-de-terminal-filejian-tie-gong-ju.html</id><summary type="html">&lt;p&gt;如果常使用vim編輯檔案可能會遇到一個問題，&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;如果想要將某個檔案的內容複製到其他地方要怎麼辦？&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;因為vim是使用終端機內的文字編排，所以即使是使用滑鼠游標選取之後在貼上，難免會有許多邊界偵測的問題，以及複製到不必要的字元，因此這個時候還是需要使用GUI的編輯器（EX:geditor）來開啟並且複製。&lt;/p&gt;
+&lt;p&gt;為了減少這方面的不方便，ubuntu上有個黏貼管理的程式-&lt;strong&gt;xclip&lt;/strong&gt;&lt;/p&gt;
+&lt;h3&gt;安裝&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;apt&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="n"&gt;xclip&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;or&lt;/p&gt;
+&lt;p&gt;前往&lt;a href="http://sourceforge.net/projects/xclip/"&gt;網站&lt;/a&gt;下載&lt;/p&gt;
+&lt;h3&gt;用法&lt;/h3&gt;
+&lt;h4&gt;終端機內&lt;/h4&gt;
+&lt;p&gt;將檔案pipe到終端機的buffer內，&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;cat&lt;/span&gt; &lt;span class="n"&gt;my_file&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;md&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;xclip&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;如此會將需要複製的內容複製到x buffer內，等待下次需要使用的時候&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;xclip&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;o&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;可以配合其他功能使用，例如：&lt;/p&gt;
+&lt;p&gt;丟到另外一份檔案中&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;xclip&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;o&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;output&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;md&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;使用grep尋找行內關鍵字&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;xclip&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;o&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;grep&lt;/span&gt; &lt;span class="o"&gt;^&lt;/span&gt;&lt;span class="n"&gt;happy&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h4&gt;如果是想要儲存在GUI的暫存中&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;cat&lt;/span&gt; &lt;span class="n"&gt;my_file&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;md&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;xclip&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;selection&lt;/span&gt; &lt;span class="n"&gt;clipboard&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;如此便可以使用滑鼠於其他地方使用貼上功能貼到任意的地方&lt;/p&gt;</summary><category term="xclip"></category><category term="ubuntu"></category></entry></feed>
