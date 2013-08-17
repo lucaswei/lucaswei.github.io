@@ -305,4 +305,4 @@ Development server is running at http://127.0.0.1:8000/&lt;/p&gt;
     $stmt-&amp;gt;execute(array($this-&amp;gt;userID));
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;都是一種好習慣也是一種好方法:D&lt;/p&gt;</summary><category term="SQL"></category><category term="Ubuntu"></category></entry><entry><title>My super title</title><link href="/my-super-post.html" rel="alternate"></link><updated>2010-12-03T10:20:00+08:00</updated><author><name>Alexis Metaireau</name></author><id>tag:,2010-12-03:my-super-post.html</id><summary type="html">&lt;p&gt;This is the content of my super blog post.&lt;/p&gt;</summary><category term="pelican"></category><category term="publishing"></category></entry></feed>
+&lt;p&gt;都是一種好習慣也是一種好方法:D&lt;/p&gt;</summary><category term="SQL"></category><category term="Ubuntu"></category></entry></feed>
