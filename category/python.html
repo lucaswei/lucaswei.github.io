@@ -1,270 +1,95 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="en">
 <head>
-        <meta charset="utf-8">
-        <title>Lucas's 部落格 - Python</title>
-        <link rel="stylesheet" href="/theme/css/main.css">
-                <link href="/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Lucas's 部落格 Atom Feed" />
-                
-        <!--[if IE]>
-            <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-        <![endif]-->
-</head>
+	<meta charset="utf-8">
+	<title>Lucas's 部落格</title>
+	<meta name="description" content="">
+	<meta name="author" content="LucasWei">
 
-<body id="index" class="home">
-        <header id="banner" class="body">
-                <h1><a href="/">Lucas's 部落格 </a></h1>
-                <nav><ul>
-                                                                                    <li class="active"><a href="/category/python.html">Python</a></li>
-                                    <li ><a href="/category/sql.html">SQL</a></li>
-                                                </ul></nav>
-        </header><!-- /#banner -->
-                
-            
+	<!-- HTML5 shim, for IE6-8 support of HTML elements -->
+	<!--[if lt IE 9]>
+		<script src="/theme/html5.js"></script>
+	<![endif]-->
 
-                            <aside id="featured" class="body">
-                <article>
-                    <h1 class="entry-title"><a href="/setting_django_on_apache_server.html">setting_django_on_apache_server</a></h1> 
-                    <footer class="post-info">
-        <abbr class="published" title="2013-08-17T23:50:00">
-                Sat 17 August 2013
-        </abbr>
+	<!-- Styles -->
+	<link href="/theme/bootstrap.min.css" rel="stylesheet">
+	<link href="/theme/local.css" rel="stylesheet">
+	<link href="/theme/pygments.css" rel="stylesheet">
 
-                <address class="vcard author">
-                By <a class="url fn" href="/author/lucaswei.html">LucasWei</a>
-        </address>
-        <p>In <a href="/category/python.html">Python</a>. </p>
-<p>tags: <a href="/tag/django.html">Django</a><a href="/tag/ubuntu.html">Ubuntu</a></p>
-</footer><!-- /.post-info --><p>如果有在ubuntu上架設過LAMP的應該都知道，其實就是幾個指令，設定好密碼，還可以裝個phpmyadmin來管理資料庫，他的方便性大大降低了他的門檻，本著如此方便的精神，我覺得「安裝Django應該也很簡單吧？」就開始這段錯誤的過程，因為python不算是native支援網頁顯示的，使用一些module，或是使用以前CGI的方式來讓apache驅動他，外加上Django其實是包好好的Framework，所以在設定上就有這麼不人性點。所以，經過這麼多波折，我決定把這些過程記錄下來XD。</p>
-<h1>環境設定</h1>
-<p>首先，你需要
-1. 安裝server，並且安裝wsgi的module</p>
-<div class="highlight"><pre>    <span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">apache2</span> <span class="n">libapache2</span><span class="o">-</span><span class="n">mod</span><span class="o">-</span><span class="n">wsgi</span>
-</pre></div>
+    <!-- Feeds -->
+        <link href="/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Lucas's 部落格 Atom Feed" />
+        
+		</head>
+<body>
+			<div class="topbar">
+	  <div class="topbar-inner">
+		<div class="container-fluid">
+		  <a class="brand" href="/">Lucas's 部落格</a>
+			<ul class="nav">
+																										<li class="active"><a href="/category/python.html">Python</a></li>
+									<li ><a href="/category/sql.html">SQL</a></li>
+							</ul>
+			<p class="pull-right"><a href="/archives.html">[archives]</a> <a href="/tags.html">[tags]</a></p>
+		</div>
+	  </div>
+	</div>
 
-
-<ol>
-<li>
-<p>安裝<a href="http://www.openfoundry.org/tw/tech-column/8536-introduction-of-python-extension-management-tools">python pip</a></p>
-<div class="highlight"><pre><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">python</span><span class="o">-</span><span class="n">setuptools</span>
-</pre></div>
-
-
-<ol>
-<li>
-<p>最後，再用pip安裝Django，之後的問題就隨之而來了（誤</p>
-<p>sudo pip install django</p>
-</li>
-</ol>
-</li>
-</ol>
-<p>之後，在你想要撰寫的目錄下，新增一個資料夾，用來管理之後的程式（我是在家目錄底下新增/home/lucas/django）</p>
-<div class="highlight"><pre>    <span class="n">mkdir</span> <span class="o">~/</span><span class="n">django</span>
-</pre></div>
-
-
-<h1>IP設定</h1>
-<p>在hosts中新增幾個IP</p>
-<blockquote>
-<p>vi /etc/hosts</p>
-</blockquote>
-<div class="highlight"><pre><span class="mf">127.0.0.1</span>   <span class="n">localhost</span>
-<span class="mf">127.0.0.2</span>   <span class="n">wsgi</span><span class="p">.</span><span class="n">djangoserver</span>
-<span class="mf">127.0.0.3</span>   <span class="n">hello</span><span class="p">.</span><span class="n">djangoserver</span>
-</pre></div>
-
-
-<h1>測試WSGI是否可以執行</h1>
-<p>創建資料夾</p>
-<blockquote>
-<p>mkdir ~/django/myapp</p>
-</blockquote>
-<p>新增python的應用程式<code>wsgi.app</code></p>
-<blockquote>
-<p>vi ~/django/myapp/wsgi.app</p>
-</blockquote>
-<div class="highlight"><pre>    <span class="n">def</span> <span class="n">application</span><span class="p">(</span><span class="n">environ</span><span class="p">,</span> <span class="n">start_response</span><span class="p">)</span><span class="o">:</span>
-        <span class="n">status</span> <span class="o">=</span> <span class="err">&#39;</span><span class="mi">200</span> <span class="n">OK</span><span class="err">&#39;</span>
-        <span class="n">output</span> <span class="o">=</span> <span class="err">&#39;</span><span class="n">Hello</span> <span class="n">World</span><span class="o">!</span><span class="err">&#39;</span>
-
-        <span class="n">response_headers</span> <span class="o">=</span> <span class="p">[(</span><span class="err">&#39;</span><span class="n">Content</span><span class="o">-</span><span class="n">type</span><span class="err">&#39;</span><span class="p">,</span> <span class="err">&#39;</span><span class="n">text</span><span class="o">/</span><span class="n">plain</span><span class="err">&#39;</span><span class="p">),</span>
-                            <span class="p">(</span><span class="err">&#39;</span><span class="n">Content</span><span class="o">-</span><span class="n">Length</span><span class="err">&#39;</span><span class="p">,</span> <span class="n">str</span><span class="p">(</span><span class="n">len</span><span class="p">(</span><span class="n">output</span><span class="p">)))]</span>
-        <span class="n">start_response</span><span class="p">(</span><span class="n">status</span><span class="p">,</span> <span class="n">response_headers</span><span class="p">)</span>
-
-        <span class="k">return</span> <span class="p">[</span><span class="n">output</span><span class="p">]</span>
-</pre></div>
+	<div class="container-fluid">
+	  <div class="sidebar">
+		<div class="well">
+			<h3>Blogroll</h3>
+			<ul>
+								<li><a href="http://getpelican.com/">Pelican</a></li>
+								<li><a href="http://python.org/">Python.org</a></li>
+								<li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+								<li><a href="#">You can modify those links in your config file</a></li>
+							</ul>
+			<div class="social">
+			<h3>Social</h3>
+			<ul>
+								<li><a href="#">You can add links in your config file</a></li>
+								<li><a href="#">Another social link</a></li>
+							</ul>
+			</div>
+		</div>
+	  </div>
+	  <div class="content">
+			<div class="page-header"><h1>Lucas's 部落格 <small>Python</small></h1></div>			
+<div class='article'>
+	<h2>setting_django_on_apache_server</h2>
+	<div class="well small">Permalink: <a class="more" href="/setting_django_on_apache_server.html">2013-08-17 23:50:00</a>
+by <a class="url fn" href="/author/lucaswei.html">LucasWei </a>
+ in <a href="/category/python.html">Python</a>
+tags: <a href="/tag/django.html">Django</a> <a href="/tag/ubuntu.html">Ubuntu</a> </div>
+	<div class="summary"><p>如果有在ubuntu上架設過LAMP的應該都知道，其實就是幾個指令，設定好密碼，還可以裝個phpmyadmin來管理資料庫，他的方便性大大降低了他的門檻，本著如此方便的精神，我覺得「安裝Django應該也很簡單吧？」就開始這段錯誤的過程，因為python不算是native支援網頁顯示的，使用一些module，或是使用以前CGI的方式來讓apache驅動他，外加上Django其實是包好好的Framework，所以在設定上就有這麼不人性點。所以，經過這麼多波折，我決定把這些過程記錄下來XD。</p> <a class="btn primary xsmall" href="/setting_django_on_apache_server.html">more…</a>
+	</div>
+</div>	
+<div class='article'>
+	<h2>django基本介紹</h2>
+	<div class="well small">Permalink: <a class="more" href="/djangoji-ben-jie-shao.html">2013-08-17 23:49:00</a>
+by <a class="url fn" href="/author/lucaswei.html">LucasWei </a>
+ in <a href="/category/python.html">Python</a>
+tags: <a href="/tag/django.html">Django</a> <a href="/tag/ubuntu.html">Ubuntu</a> </div>
+	<div class="summary"><p>趁著專題結束，趕快把Django的內容寫下一些紀錄，方便自己以後要用的時候可以查找，也因為雖然他的文件很完善了XD，</p> <a class="btn primary xsmall" href="/djangoji-ben-jie-shao.html">more…</a>
+	</div>
+</div>	
+<div class='article'>
+	<h2>My super title</h2>
+	<div class="well small">Permalink: <a class="more" href="/my-super-post.html">2010-12-03 10:20:00</a>
+by <a class="url fn" href="/author/alexis-metaireau.html">Alexis Metaireau </a>
+ in <a href="/category/python.html">Python</a>
+tags: <a href="/tag/pelican.html">pelican</a> <a href="/tag/publishing.html">publishing</a> </div>
+	<div class="summary"><p>Short version for index and feeds</p> <a class="btn primary xsmall" href="/my-super-post.html">more…</a>
+	</div>
+</div>	
 
 
-<p>新增apache的設定</p>
-<blockquote>
-<p>sudo vi /etc/apache2/sites-available/wsgi</p>
-</blockquote>
-<div class="highlight"><pre>    <span class="nt">&lt;VirtualHost</span> <span class="err">*:80</span><span class="nt">&gt;</span>
+		<footer>
+		  <p>Powered by <a href="http://getpelican.com/">Pelican</a>. Theme based on <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap</a>.</p>
+		  <p>&copy; LucasWei</p>
+		</footer>
+	  </div>
 
-        ServerName wsgi.djangoserver
-        DocumentRoot /home/lucas/django
-
-        <span class="nt">&lt;Directory</span> <span class="err">/home/lucas/django</span><span class="nt">&gt;</span>
-            Order allow,deny
-            Allow from all
-        <span class="nt">&lt;/Directory&gt;</span>
-
-        WSGIScriptAlias / /home/lucas/django/myapp/wsgi.app         
-    <span class="nt">&lt;/VirtualHost&gt;</span>
-</pre></div>
-
-
-<p>將設定檔生效</p>
-<blockquote>
-<p>sudo a2ensite
-  sudo service apache2 reload</p>
-</blockquote>
-<p>測試你的wsgi是否有效
-<a href="http://wsgi.djangoserver">http://wsgi.djangoserver</a>如果沒有看到<code>Hello World!</code>表示wsgi的設定就有問題了，可能需要先完成這個步驟，才可以繼續設定你的環境。</p>
-<h1>測試Django是否可以安裝</h1>
-<p>開啟一個Django的project</p>
-<blockquote>
-<p>mkdir ~/django
-  python django-admin.py mysite</p>
-</blockquote>
-<p>設定一個網站的wsgi file</p>
-<blockquote>
-<p>mkdir ~/django/apache
-  vi ~/django/apache/django.wsgi</p>
-</blockquote>
-<p>編輯<code>django.wsgi</code>的內容</p>
-<div class="highlight"><pre><span class="n">import</span> <span class="n">os</span>
-<span class="n">import</span> <span class="n">sys</span>
-
-<span class="n">path</span> <span class="o">=</span> <span class="err">&#39;</span><span class="o">/</span><span class="n">srv</span><span class="o">/</span><span class="n">www</span><span class="err">&#39;</span>
-<span class="k">if</span> <span class="n">path</span> <span class="n">not</span> <span class="n">in</span> <span class="n">sys</span><span class="p">.</span><span class="n">path</span><span class="o">:</span>
-    <span class="n">sys</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="err">&#39;</span><span class="o">/</span><span class="n">srv</span><span class="o">/</span><span class="n">www</span><span class="err">&#39;</span><span class="p">)</span>
-
-<span class="n">os</span><span class="p">.</span><span class="n">environ</span><span class="p">[</span><span class="err">&#39;</span><span class="n">DJANGO_SETTINGS_MODULE</span><span class="err">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="err">&#39;</span><span class="n">hello</span><span class="p">.</span><span class="n">settings</span><span class="err">&#39;</span>
-
-<span class="n">import</span> <span class="n">django</span><span class="p">.</span><span class="n">core</span><span class="p">.</span><span class="n">handlers</span><span class="p">.</span><span class="n">wsgi</span>
-<span class="n">application</span> <span class="o">=</span> <span class="n">django</span><span class="p">.</span><span class="n">core</span><span class="p">.</span><span class="n">handlers</span><span class="p">.</span><span class="n">wsgi</span><span class="p">.</span><span class="n">WSGIHandler</span><span class="p">()</span>
-</pre></div>
-
-
-<h2>新增一個apache site</h2>
-<blockquote>
-<p>sudo vi /etc/apache2/site-available/hello</p>
-</blockquote>
-<p>編輯<code>hello</code>的內容</p>
-<p><VirtualHost *:80></p>
-<div class="highlight"><pre><span class="nb">ServerName</span> <span class="nx">hello.djangoserver</span>
-<span class="nb">DocumentRoot</span> <span class="p">/</span><span class="nx">srv</span><span class="p">/</span><span class="nx">www</span><span class="p">/</span><span class="nx">hello</span>
-
-<span class="o">&lt;</span><span class="nx">Directory</span> <span class="p">/</span><span class="nx">srv</span><span class="p">/</span><span class="nx">www</span><span class="p">/</span><span class="nx">hello</span><span class="o">&gt;</span>
-    <span class="k">Order</span> <span class="nx">allow</span><span class="p">,</span><span class="nx">deny</span>
-    <span class="nx">Allow</span> <span class="nb">from</span> <span class="kc">all</span>
-<span class="o">&lt;/</span><span class="nx">Directory</span><span class="o">&gt;</span>
-
-<span class="nx">WSGIDaemonProcess</span> <span class="nx">hello.djangoserver</span> <span class="n">processes</span><span class="o">=</span><span class="mi">2</span> <span class="n">threads</span><span class="o">=</span><span class="mi">15</span> <span class="nx">display</span><span class="na">-name</span><span class="o">=%</span><span class="p">{</span><span class="k">GROUP</span><span class="p">}</span>
-<span class="nx">WSGIProcessGroup</span> <span class="nx">hello.djangoserver</span>
-
-<span class="nx">WSGIScriptAlias</span> <span class="o">/</span> <span class="p">/</span><span class="nx">srv</span><span class="p">/</span><span class="nx">www</span><span class="p">/</span><span class="nx">hello</span><span class="p">/</span><span class="nx">apache</span><span class="p">/</span><span class="nx">django.wsgi</span>
-
-<span class="o">&lt;/</span><span class="nx">VirtualHost</span><span class="o">&gt;</span>
-</pre></div>
-
-
-<p>啟動apache site</p>
-<blockquote>
-<p>sudo a2ensite hello
-  sudo /etc/init.d/apache2 reload</p>
-</blockquote>
-<p>使用瀏覽器啟動<a href="http://hello.djangoserver">http://hello.djangoserver</a>你就會看到歡迎頁面了</p>
-<p>參考：
-<a href="http://blog.stannard.net.au/2010/12/11/installing-django-with-apache-and-mod_wsgi-on-ubuntu-10-04/">Installing Django with Apache and mod_wsgi on Ubuntu 10.04</a>
-<a href="http://library.linode.com/frameworks/django-apache-mod-wsgi/ubuntu-10.04-lucid#sph_configure-django-applications-for-wsgi">Django, Apache and mod_wsgi on Ubuntu 10.04 (Lucid)</a></p>                </article>
-                            </aside><!-- /#featured -->
-                            <section id="content" class="body">
-                    <h1>Other articles</h1>
-                    <hr />
-                    <ol id="posts-list" class="hfeed">
-                                                
-
-                 
-                        <li><article class="hentry">    
-                <header>
-                    <h1><a href="/djangoji-ben-jie-shao.html" rel="bookmark"
-                           title="Permalink to django基本介紹">django基本介紹</a></h1>
-                </header>
-                
-                <div class="entry-content">
-                <footer class="post-info">
-        <abbr class="published" title="2013-08-17T23:49:00">
-                Sat 17 August 2013
-        </abbr>
-
-                <address class="vcard author">
-                By <a class="url fn" href="/author/lucaswei.html">LucasWei</a>
-        </address>
-        <p>In <a href="/category/python.html">Python</a>. </p>
-<p>tags: <a href="/tag/django.html">Django</a><a href="/tag/ubuntu.html">Ubuntu</a></p>
-</footer><!-- /.post-info -->                <p>趁著專題結束，趕快把Django的內容寫下一些紀錄，方便自己以後要用的時候可以查找，也因為雖然他的文件很完善了XD，</p>
-                <a class="readmore" href="/djangoji-ben-jie-shao.html">read more</a>
-                                </div><!-- /.entry-content -->
-            </article></li>
-                            
-
-                 
-                        <li><article class="hentry">    
-                <header>
-                    <h1><a href="/my-super-post.html" rel="bookmark"
-                           title="Permalink to My super title">My super title</a></h1>
-                </header>
-                
-                <div class="entry-content">
-                <footer class="post-info">
-        <abbr class="published" title="2010-12-03T10:20:00">
-                Fri 03 December 2010
-        </abbr>
-
-                <address class="vcard author">
-                By <a class="url fn" href="/author/alexis-metaireau.html">Alexis Metaireau</a>
-        </address>
-        <p>In <a href="/category/python.html">Python</a>. </p>
-<p>tags: <a href="/tag/pelican.html">pelican</a><a href="/tag/publishing.html">publishing</a></p>
-</footer><!-- /.post-info -->                <p>Short version for index and feeds</p>
-                <a class="readmore" href="/my-super-post.html">read more</a>
-                                </div><!-- /.entry-content -->
-            </article></li>
-                            </ol><!-- /#posts-list -->
-                            <p class="paginator">
-        Page 1 / 1
-    </p>
-                        </section><!-- /#content -->
-                    <section id="extras" class="body">
-                        <div class="blogroll">
-                        <h2>blogroll</h2>
-                        <ul>
-                                                    <li><a href="http://getpelican.com/">Pelican</a></li>
-                                                    <li><a href="http://python.org/">Python.org</a></li>
-                                                    <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
-                                                    <li><a href="#">You can modify those links in your config file</a></li>
-                                                </ul>
-                </div><!-- /.blogroll -->
-                                <div class="social">
-                        <h2>social</h2>
-                        <ul>
-                            <li><a href="/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
-                            
-                                                    <li><a href="#">You can add links in your config file</a></li>
-                                                    <li><a href="#">Another social link</a></li>
-                                                </ul>
-                </div><!-- /.social -->
-                </section><!-- /#extras -->
-
-        <footer id="contentinfo" class="body">
-                <address id="about" class="vcard body">
-                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
-                </address><!-- /#about -->
-
-                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
-        </footer><!-- /#contentinfo -->
-
+	</div>
 </body>
 </html>
