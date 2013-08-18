@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom"><title>Lucas's 部落格</title><link href="/" rel="alternate"></link><link href="/feeds/python.atom.xml" rel="self"></link><id>/</id><updated>2013-08-17T23:50:00+08:00</updated><entry><title>setting django on apache server</title><link href="/setting-django-on-apache-server.html" rel="alternate"></link><updated>2013-08-17T23:50:00+08:00</updated><author><name>LucasWei</name></author><id>tag:,2013-08-17:setting-django-on-apache-server.html</id><summary type="html">&lt;p&gt;如果有在ubuntu上架設過LAMP的應該都知道，其實就是幾個指令，設定好密碼，還可以裝個phpmyadmin來管理資料庫，他的方便性大大降低了他的門檻，本著如此方便的精神，我覺得「安裝Django應該也很簡單吧？」就開始這段錯誤的過程，因為python不算是native支援網頁顯示的，使用一些module，或是使用以前CGI的方式來讓apache驅動他，外加上Django其實是包好好的Framework，所以在設定上就有這麼不人性點。所以，經過這麼多波折，我決定把這些過程記錄下來XD。&lt;/p&gt;
-&lt;h1&gt;環境設定&lt;/h1&gt;
+&lt;h3&gt;環境設定&lt;/h3&gt;
 &lt;p&gt;首先，你需要
 1. 安裝server，並且安裝wsgi的module&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;    &lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;apt&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="n"&gt;apache2&lt;/span&gt; &lt;span class="n"&gt;libapache2&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;mod&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;wsgi&lt;/span&gt;
@@ -14,12 +14,13 @@
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;ol&gt;
+&lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;最後，再用pip安裝Django，之後的問題就隨之而來了（誤&lt;/p&gt;
-&lt;p&gt;sudo pip install django&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;pip&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="n"&gt;django&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;之後，在你想要撰寫的目錄下，新增一個資料夾，用來管理之後的程式（我是在家目錄底下新增/home/lucas/django）&lt;/p&gt;
@@ -27,7 +28,7 @@
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;h1&gt;IP設定&lt;/h1&gt;
+&lt;h3&gt;IP設定&lt;/h3&gt;
 &lt;p&gt;在hosts中新增幾個IP&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;vi /etc/hosts&lt;/p&gt;
@@ -38,7 +39,7 @@
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;h1&gt;測試WSGI是否可以執行&lt;/h1&gt;
+&lt;h3&gt;測試WSGI是否可以執行&lt;/h3&gt;
 &lt;p&gt;創建資料夾&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;mkdir ~/django/myapp&lt;/p&gt;
@@ -85,7 +86,7 @@
 &lt;/blockquote&gt;
 &lt;p&gt;測試你的wsgi是否有效
 &lt;a href="http://wsgi.djangoserver"&gt;http://wsgi.djangoserver&lt;/a&gt;如果沒有看到&lt;code&gt;Hello World!&lt;/code&gt;表示wsgi的設定就有問題了，可能需要先完成這個步驟，才可以繼續設定你的環境。&lt;/p&gt;
-&lt;h1&gt;測試Django是否可以安裝&lt;/h1&gt;
+&lt;h3&gt;測試Django是否可以安裝&lt;/h3&gt;
 &lt;p&gt;開啟一個Django的project&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;mkdir ~/django

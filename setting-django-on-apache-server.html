@@ -67,7 +67,7 @@
                           </footer><!-- /.post-info -->
             <div class="entry-content">
               <p>如果有在ubuntu上架設過LAMP的應該都知道，其實就是幾個指令，設定好密碼，還可以裝個phpmyadmin來管理資料庫，他的方便性大大降低了他的門檻，本著如此方便的精神，我覺得「安裝Django應該也很簡單吧？」就開始這段錯誤的過程，因為python不算是native支援網頁顯示的，使用一些module，或是使用以前CGI的方式來讓apache驅動他，外加上Django其實是包好好的Framework，所以在設定上就有這麼不人性點。所以，經過這麼多波折，我決定把這些過程記錄下來XD。</p>
-<h1>環境設定</h1>
+<h3>環境設定</h3>
 <p>首先，你需要
 1. 安裝server，並且安裝wsgi的module</p>
 <div class="highlight"><pre>    <span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">apache2</span> <span class="n">libapache2</span><span class="o">-</span><span class="n">mod</span><span class="o">-</span><span class="n">wsgi</span>
@@ -81,12 +81,13 @@
 </pre></div>
 
 
-<ol>
+</li>
 <li>
 <p>最後，再用pip安裝Django，之後的問題就隨之而來了（誤</p>
-<p>sudo pip install django</p>
-</li>
-</ol>
+<div class="highlight"><pre><span class="n">sudo</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">django</span>
+</pre></div>
+
+
 </li>
 </ol>
 <p>之後，在你想要撰寫的目錄下，新增一個資料夾，用來管理之後的程式（我是在家目錄底下新增/home/lucas/django）</p>
@@ -94,7 +95,7 @@
 </pre></div>
 
 
-<h1>IP設定</h1>
+<h3>IP設定</h3>
 <p>在hosts中新增幾個IP</p>
 <blockquote>
 <p>vi /etc/hosts</p>
@@ -105,7 +106,7 @@
 </pre></div>
 
 
-<h1>測試WSGI是否可以執行</h1>
+<h3>測試WSGI是否可以執行</h3>
 <p>創建資料夾</p>
 <blockquote>
 <p>mkdir ~/django/myapp</p>
@@ -152,7 +153,7 @@
 </blockquote>
 <p>測試你的wsgi是否有效
 <a href="http://wsgi.djangoserver">http://wsgi.djangoserver</a>如果沒有看到<code>Hello World!</code>表示wsgi的設定就有問題了，可能需要先完成這個步驟，才可以繼續設定你的環境。</p>
-<h1>測試Django是否可以安裝</h1>
+<h3>測試Django是否可以安裝</h3>
 <p>開啟一個Django的project</p>
 <blockquote>
 <p>mkdir ~/django
@@ -244,9 +245,9 @@
 
 <h4>Tags</h4>
 	<ul>
-		    <li class="tag-2"><a href="/tag/django.html">Django</a></li>
 		    <li class="tag-4"><a href="/tag/ubuntu.html">ubuntu</a></li>
 		    <li class="tag-1"><a href="/tag/ubuntu.html">Ubuntu</a></li>
+		    <li class="tag-2"><a href="/tag/django.html">Django</a></li>
 		    <li class="tag-4"><a href="/tag/sql.html">SQL</a></li>
 		    <li class="tag-4"><a href="/tag/xclip.html">xclip</a></li>
 	</ul>
