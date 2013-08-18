@@ -31,14 +31,14 @@
         <div class="row">
 
           <header id="banner" class="body">
-                  <h1><a href="">Lucas's 部落格 <strong></strong></a></h1>
+              <h1><strong><a href="/">Lucas's 部落格</a></strong></h1><h3>Lucas's blogging space</h3>
           </header><!-- /#banner -->
 
             <div id="navigation" class="navbar row">
               <a href="#" gumby-trigger="#navigation &gt; ul" class="toggle"><i class="icon-menu"></i></a>
              
               <ul class="columns">
-                <li><a href="">Home</a></li>
+                <li><a href="/">Home</a></li>
 
                                                   
               </ul>
@@ -115,7 +115,31 @@
 				                <footer class="post-info">
 				                    <abbr class="published" title="2013-08-17T23:50:00"> Sat 17 August 2013 </abbr>
 				                    <address class="vcard author">By <a class="url fn" href="/author/lucaswei.html">LucasWei</a></address>				                </footer><!-- /.post-info -->
-				                <div class="entry-content"> <p>如果有在ubuntu上架設過LAMP的應該都知道，其實就是幾個指令，設定好密碼，還可以裝個phpmyadmin來管理資料庫，他的方便性大大降低了他的門檻，本著如此方便的精神，我覺得「安裝Django應該也很簡單吧？」就開始這段錯誤的過程，因為python不算是native支援網頁顯示的，使用一些module，或是使用以前CGI的方式來讓apache驅動他，外加上Django其實是包好好的Framework，所以在設定上就有這麼不人性點。所以，經過這麼多波折，我決定把這些過程記錄下來XD。</p> </div><!-- /.entry-content -->
+				                <div class="entry-content"> <p>如果有在ubuntu上架設過LAMP的應該都知道，其實就是幾個指令，設定好密碼，還可以裝個phpmyadmin來管理資料庫，他的方便性大大降低了他的門檻，本著如此方便的精神，我覺得「安裝Django應該也很簡單吧？」就開始這段錯誤的過程，因為python不算是native支援網頁顯示的，使用一些module，或是使用以前CGI的方式來讓apache驅動他，外加上Django其實是包好好的Framework，所以在設定上就有這麼不人性點。所以，經過這麼多波折，我決定把這些過程記錄下來XD。</p>
+<h3>環境設定</h3>
+<p>首先，你需要
+1. 安裝server，並且安裝wsgi的module</p>
+<div class="highlight"><pre>    <span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">apache2</span> <span class="n">libapache2</span><span class="o">-</span><span class="n">mod</span><span class="o">-</span><span class="n">wsgi</span>
+</pre></div>
+
+
+<ol>
+<li>
+<p>安裝<a href="http://www.openfoundry.org/tw/tech-column/8536-introduction-of-python-extension-management-tools">python pip</a></p>
+<div class="highlight"><pre><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">python</span><span class="o">-</span><span class="n">setuptools</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>最後，再用pip安裝Django，之後的問題就隨之而來了（誤</p>
+<div class="highlight"><pre><span class="n">sudo</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">django</span>
+</pre></div>
+
+
+</li>
+</ol>
+<p>之後，在你想要撰寫的目錄下 ...</p> </div><!-- /.entry-content -->
 
 								<div class="medium primary btn"><a href="/setting-django-on-apache-server.html" rel="bookmark" title="Permalink to setting django on apache server">Read more <i class="icon-arrow-right"></i></a></div>
 
@@ -135,7 +159,35 @@
 				                <footer class="post-info">
 				                    <abbr class="published" title="2013-08-17T23:49:00"> Sat 17 August 2013 </abbr>
 				                    <address class="vcard author">By <a class="url fn" href="/author/lucaswei.html">LucasWei</a></address>				                </footer><!-- /.post-info -->
-				                <div class="entry-content"> <p>趁著專題結束，趕快把Django的內容寫下一些紀錄，方便自己以後要用的時候可以查找，也因為雖然他的文件很完善了XD，</p> </div><!-- /.entry-content -->
+				                <div class="entry-content"> <p>趁著專題結束，趕快把Django的內容寫下一些紀錄，方便自己以後要用的時候可以查找，也因為雖然他的文件很完善了XD，但是因為是英文比較難閱讀，而且也需要許多實作來驗證想法，因此想要寫些筆記把心得跟細節記錄下來。</p>
+<p>需要知道Django在Ubuntu上如何安裝與基本的運行，請參照<a href="http://lucaswei.blogspot.tw/2012/01/ubuntu-django.html">這篇</a></p>
+<h2>首先</h2>
+<p>在command line鍵入</p>
+<div class="highlight"><pre><span class="n">django</span><span class="o">-</span><span class="n">admin</span><span class="p">.</span><span class="n">py</span> <span class="o">--</span><span class="n">version</span>
+</pre></div>
+
+
+<p>我使用的版本文1.4.1，作業系統為Ubuntu12.04，所以如果以前或者以後的版本可能會有相容性的問題。</p>
+<h2>建立一個project</h2>
+<p>使用command line輸入</p>
+<div class="highlight"><pre><span class="n">django</span><span class="o">-</span><span class="n">admin</span><span class="p">.</span><span class="n">py</span> <span class="n">startproject</span> <span class="n">myproject</span>
+</pre></div>
+
+
+<p><em>myproject可以置換成自己想要的專案名稱</em></p>
+<p>之後會得到一個資料夾，用剛才的專案名稱命名，使用cd切換進去後，可以看到以下許多檔案。</p>
+<div class="highlight"><pre><span class="n">mysite</span><span class="o">/</span>
+    <span class="n">manage</span><span class="p">.</span><span class="n">py</span>
+    <span class="n">mysite</span><span class="o">/</span>
+        <span class="n">__init__</span><span class="p">.</span><span class="n">py</span>
+        <span class="n">settings</span><span class="p">.</span><span class="n">py</span>
+       <span class="n">urls</span><span class="p">.</span><span class="n">py</span>
+        <span class="n">wsgi</span><span class="p">.</span><span class="n">py</span>
+</pre></div>
+
+
+<p>接著輸入</p>
+<div class="highlight"><pre><span class="n">cd ...</span></pre></div> </div><!-- /.entry-content -->
 
 								<div class="medium primary btn"><a href="/djangoji-ben-jie-shao.html" rel="bookmark" title="Permalink to django基本介紹">Read more <i class="icon-arrow-right"></i></a></div>
 
@@ -203,17 +255,17 @@
 <ul>
 			<li><a href="/category/python.html">Python</a></li>
 			<li><a href="/category/sql.html">SQL</a></li>
-			<li><a href="/category/tool.html">tool</a></li>
+			<li><a href="/category/tool.html">Tool</a></li>
 	</ul>
 
 
 <h4>Tags</h4>
 	<ul>
+		    <li class="tag-4"><a href="/tag/ubuntu.html">ubuntu</a></li>
 		    <li class="tag-1"><a href="/tag/ubuntu.html">Ubuntu</a></li>
 		    <li class="tag-4"><a href="/tag/sql.html">SQL</a></li>
-		    <li class="tag-2"><a href="/tag/django.html">Django</a></li>
-		    <li class="tag-4"><a href="/tag/ubuntu.html">ubuntu</a></li>
 		    <li class="tag-4"><a href="/tag/xclip.html">xclip</a></li>
+		    <li class="tag-2"><a href="/tag/django.html">Django</a></li>
 	</ul>
 
 

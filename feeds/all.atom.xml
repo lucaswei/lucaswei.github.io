@@ -184,8 +184,7 @@
 &lt;p&gt;使用瀏覽器啟動&lt;a href="http://hello.djangoserver"&gt;http://hello.djangoserver&lt;/a&gt;你就會看到歡迎頁面了&lt;/p&gt;
 &lt;p&gt;參考：
 &lt;a href="http://blog.stannard.net.au/2010/12/11/installing-django-with-apache-and-mod_wsgi-on-ubuntu-10-04/"&gt;Installing Django with Apache and mod_wsgi on Ubuntu 10.04&lt;/a&gt;
-&lt;a href="http://library.linode.com/frameworks/django-apache-mod-wsgi/ubuntu-10.04-lucid#sph_configure-django-applications-for-wsgi"&gt;Django, Apache and mod_wsgi on Ubuntu 10.04 (Lucid)&lt;/a&gt;&lt;/p&gt;</summary><category term="Django"></category><category term="Ubuntu"></category></entry><entry><title>django基本介紹</title><link href="/djangoji-ben-jie-shao.html" rel="alternate"></link><updated>2013-08-17T23:49:00+08:00</updated><author><name>LucasWei</name></author><id>tag:,2013-08-17:djangoji-ben-jie-shao.html</id><summary type="html">&lt;p&gt;但是因為是英文比較難閱讀，而且也需要許多實作來驗證想法，因此想要寫些筆記把心得跟細節記錄下來。&lt;/p&gt;
-&lt;p&gt;趁著專題結束，趕快把Django的內容寫下一些紀錄，方便自己以後要用的時候可以查找，也因為雖然他的文件很完善了XD，但是因為是英文比較難閱讀，而且也需要許多實作來驗證想法，因此想要寫些筆記把心得跟細節記錄下來。&lt;/p&gt;
+&lt;a href="http://library.linode.com/frameworks/django-apache-mod-wsgi/ubuntu-10.04-lucid#sph_configure-django-applications-for-wsgi"&gt;Django, Apache and mod_wsgi on Ubuntu 10.04 (Lucid)&lt;/a&gt;&lt;/p&gt;</summary><category term="Django"></category><category term="Ubuntu"></category></entry><entry><title>django基本介紹</title><link href="/djangoji-ben-jie-shao.html" rel="alternate"></link><updated>2013-08-17T23:49:00+08:00</updated><author><name>LucasWei</name></author><id>tag:,2013-08-17:djangoji-ben-jie-shao.html</id><summary type="html">&lt;p&gt;趁著專題結束，趕快把Django的內容寫下一些紀錄，方便自己以後要用的時候可以查找，也因為雖然他的文件很完善了XD，但是因為是英文比較難閱讀，而且也需要許多實作來驗證想法，因此想要寫些筆記把心得跟細節記錄下來。&lt;/p&gt;
 &lt;p&gt;需要知道Django在Ubuntu上如何安裝與基本的運行，請參照&lt;a href="http://lucaswei.blogspot.tw/2012/01/ubuntu-django.html"&gt;這篇&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;首先&lt;/h2&gt;
 &lt;p&gt;在command line鍵入&lt;/p&gt;
