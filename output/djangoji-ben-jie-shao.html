@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+    <head>
+        
+        <title>django基本介紹</title>
+        <meta charset="utf-8" />
+                                                                
+
+        <!-- Mobile viewport optimized: j.mp/bplateviewport -->
+        <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1">
+
+        <link rel="stylesheet" type="text/css" href="/theme/gumby.css" />
+        <link rel="stylesheet" type="text/css" href="/theme/style.css" />
+        <link rel="stylesheet" type="text/css" href="/theme/pygment.css" />
+
+        <script src="/theme/js/libs/modernizr-2.6.2.min.js"></script>
+
+        
+            </head>
+
+    <body id="index" class="home">
+        <a href="https://github.com/lucaswei/lucaswei.github.io"><img style="position: absolute; top: 0px; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png" alt="Fork me on GitHub" /></a>
+
+        <div class="container">
+
+            <div class="row">
+
+                <header id="banner" class="body">
+                <h1><strong><a href="/">Lucas's 部落格</a></strong></h1><h3>Lucas's blogging space</h3>
+                </header><!-- /#banner -->
+
+                <div id="navigation" class="navbar row">
+                    <a href="#" gumby-trigger="#navigation &gt; ul" class="toggle"><i class="icon-menu"></i></a>
+
+                    <ul class="columns">
+                        <li><a href="/">Home</a></li>
+
+                                                                                                <li><a href="/pages/about-me.html">About Me</a></li>
+                                                
+                    </ul>
+                </div>
+
+                <section id="content" class="body">
+
+   <div class="row">
+        <div class="eleven columns">
+
+
+            <header>
+              <h2 class="entry-title">
+                <a href="/djangoji-ben-jie-shao.html" rel="bookmark"
+                   title="Permalink to django基本介紹">django基本介紹</a></h2>
+                      
+            </header>
+            <footer class="post-info">
+              <abbr class="published" title="2013-08-17T23:49:00">
+                Sat 17 August 2013
+              </abbr>
+                            <address class="vcard author">
+                By <a class="url fn" href="/author/lucaswei.html">LucasWei</a>
+              </address>
+                          </footer><!-- /.post-info -->
+            <div class="entry-content">
+              <p>趁著專題結束，趕快把Django的內容寫下一些紀錄，方便自己以後要用的時候可以查找，也因為雖然他的文件很完善了XD，但是因為是英文比較難閱讀，而且也需要許多實作來驗證想法，因此想要寫些筆記把心得跟細節記錄下來。</p>
+<p>需要知道Django在Ubuntu上如何安裝與基本的運行，請參照<a href="http://lucaswei.blogspot.tw/2012/01/ubuntu-django.html">這篇</a></p>
+<h2>首先</h2>
+<p>在command line鍵入</p>
+<div class="highlight"><pre><span class="n">django</span><span class="o">-</span><span class="n">admin</span><span class="p">.</span><span class="n">py</span> <span class="o">--</span><span class="n">version</span>
+</pre></div>
+
+
+<p>我使用的版本文1.4.1，作業系統為Ubuntu12.04，所以如果以前或者以後的版本可能會有相容性的問題。</p>
+<h2>建立一個project</h2>
+<p>使用command line輸入</p>
+<div class="highlight"><pre><span class="n">django</span><span class="o">-</span><span class="n">admin</span><span class="p">.</span><span class="n">py</span> <span class="n">startproject</span> <span class="n">myproject</span>
+</pre></div>
+
+
+<p><em>myproject可以置換成自己想要的專案名稱</em></p>
+<p>之後會得到一個資料夾，用剛才的專案名稱命名，使用cd切換進去後，可以看到以下許多檔案。</p>
+<div class="highlight"><pre><span class="n">mysite</span><span class="o">/</span>
+    <span class="n">manage</span><span class="p">.</span><span class="n">py</span>
+    <span class="n">mysite</span><span class="o">/</span>
+        <span class="n">__init__</span><span class="p">.</span><span class="n">py</span>
+        <span class="n">settings</span><span class="p">.</span><span class="n">py</span>
+       <span class="n">urls</span><span class="p">.</span><span class="n">py</span>
+        <span class="n">wsgi</span><span class="p">.</span><span class="n">py</span>
+</pre></div>
+
+
+<p>接著輸入</p>
+<div class="highlight"><pre><span class="n">cd</span> <span class="n">myproject</span>
+<span class="n">python</span> <span class="n">manage</span><span class="p">.</span><span class="n">py</span> <span class="n">runserver</span>
+</pre></div>
+
+
+<p>如果看到</p>
+<blockquote>
+<p>Validating models...</p>
+<p>0 errors found
+Django version 1.4.1, using settings 'myproject.settings'
+Development server is running at http://127.0.0.1:8000/</p>
+</blockquote>
+<p>接著使用瀏覽器開啟http://127.0.0.1:8000/就可以看到成功頁面了</p>
+<p>（歡樂的It worked!）</p>
+<h3>setting.py</h3>
+<p>所有Django的設定擺放的地方，其中包含許多基本的設定；在創建之後裡面有些項目必須先設定，以方便之後的開發。</p>
+<h4>資料庫的設定</h4>
+<p>大部分的web framework都會需要用到資料庫，所以可以優先設定，以下為設定好的例子（以MySQL為例子）</p>
+<div class="highlight"><pre><span class="n">DATABASES</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">&#39;default&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="c"># Add &#39;postgresql_psycopg2&#39;, &#39;mysql&#39;, &#39;sqlite3&#39; or &#39;oracle&#39;.</span>
+        <span class="s">&#39;ENGINE&#39;</span><span class="p">:</span> <span class="s">&#39;django.db.backends.mysql&#39;</span><span class="p">,</span>
+        <span class="c"># Or path to database file if using sqlite3.</span>
+        <span class="s">&#39;NAME&#39;</span><span class="p">:</span> <span class="s">&#39;django&#39;</span><span class="p">,</span>
+        <span class="c"># Not used with sqlite3.</span>
+        <span class="s">&#39;USER&#39;</span><span class="p">:</span> <span class="s">&#39;lucas&#39;</span><span class="p">,</span>
+        <span class="c"># Not used with sqlite3.</span>
+        <span class="s">&#39;PASSWORD&#39;</span><span class="p">:</span> <span class="s">&#39;lucas_password&#39;</span><span class="p">,</span>
+        <span class="c"># Set to empty string for localhost. Not used with sqlite3.</span>
+        <span class="s">&#39;HOST&#39;</span><span class="p">:</span> <span class="s">&#39;&#39;</span><span class="p">,</span>
+        <span class="c"># Set to empty string for default. Not used with sqlite3.</span>
+        <span class="s">&#39;PORT&#39;</span><span class="p">:</span> <span class="s">&#39;&#39;</span><span class="p">,</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>其中最重要的就是<strong>ENGINE</strong>,<strong>NAME</strong>,<strong>USER</strong>,<strong>PASSWORD</strong>需要設定，比較細部的設定可以參考<a href="https://docs.djangoproject.com/en/1.4/intro/tutorial01/#database-setup">官方的Database setup</a></p>
+<p><em>如果是MySQL使用者，記得設定完後去資料庫中新增一個資料庫，而且名字必須要跟設定中的<strong>NAME</strong>相同，以此為例就需要一個<strong>django</strong>為名稱的資料庫。</em></p>
+<h4>時區設定</h4>
+<div class="highlight"><pre><span class="n">TIME_ZONE</span> <span class="o">=</span> <span class="s">&#39;Asia/Taipei&#39;</span>
+<span class="n">LANGUAGE_CODE</span> <span class="o">=</span> <span class="s">&#39;zh-tw&#39;</span>
+</pre></div>
+
+
+<p>如何挑選所在的時區可以參照<a href="http://en.wikipedia.org/wiki/List_of_tz_zones_by_name">wiki</a></p>
+<h2>urls.py</h2>
+<p>整個專案中，用來設定對於網站的request應該開啟哪個頁面的重要設定檔案，寫好網站mapping的pattern後，之後的request都會根據此份檔案。</p>
+            </div><!-- /.entry-content -->
+            
+
+        </div><!-- /.eleven.columns -->
+        
+     <div class="three columns">
+
+<h4>Pages</h4>
+
+ <ul>
+              <li><a href="/pages/about-me.html">About Me</a></li>
+        </ul>
+
+<h4>Categories</h4>
+<ul>
+			<li><a href="/category/python.html">Python</a></li>
+			<li><a href="/category/sql.html">SQL</a></li>
+			<li><a href="/category/tool.html">Tool</a></li>
+			<li><a href="/category/blogging.html">blogging</a></li>
+	</ul>
+
+
+<h4>Tags</h4>
+	<ul>
+		    <li class="tag-1"><a href="/tag/ubuntu.html">Ubuntu</a></li>
+		    <li class="tag-4"><a href="/tag/ubuntu.html">ubuntu</a></li>
+		    <li class="tag-4"><a href="/tag/sql.html">SQL</a></li>
+		    <li class="tag-4"><a href="/tag/python.html">python</a></li>
+		    <li class="tag-4"><a href="/tag/pelican.html">pelican</a></li>
+		    <li class="tag-4"><a href="/tag/xclip.html">xclip</a></li>
+		    <li class="tag-2"><a href="/tag/django.html">Django</a></li>
+	</ul>
+
+<nav class="widget">
+  <h4>Links</h4>
+  <ul>
+    </ul>
+</nav>
+
+<nav class="widget">
+  <h4>Social</h4>
+  <ul>
+      <li><a href="http://www.plurk.com/lucas0412">Plurk</a></li>
+      <li><a href="https://github.com/lucaswei">Github</a></li>
+    </ul>
+</nav>
+
+</div> </div><!-- /.row -->
+
+
+</section>
+
+            </div><!-- /.row -->
+        </div><!-- /.container -->
+
+
+        <div class="container.nopad bg">
+
+
+            <footer id="credits" class="row">
+            <div class="seven columns left-center">
+
+                <address id="about" class="vcard body">
+                    Proudly powered by <a href="http://getpelican.com/">Pelican</a>,
+                    which takes great advantage of <a href="http://python.org">Python</a>.
+                    <br />
+                    Based on the <a target="_blank" href="http://gumbyframework.com">Gumby Framework</a>
+                </address>
+            </div>
+
+
+            <div class="seven columns">
+                <div class="row">
+                    <ul class="socbtns">
+
+                                                <li><div class="btn primary"><a href="https://github.com/lucaswei/lucaswei.github.io" target="_blank">Github</a></div></li>
+                        
+                        
+                        
+                        
+                    </ul>
+                </div>
+            </div>
+            </footer>
+
+        </div>
+
+
+                <script src="/theme/js/libs/jquery-1.9.1.min.js"></script>
+        <script src="/theme/js/libs/gumby.min.js"></script>
+        <script src="/theme/js/plugins.js"></script>
+        <script>
+            var links = document.links;
+
+            for (var i = 0, linksLength = links.length; i < linksLength; i++) {
+               if (links[i].hostname != window.location.hostname) {
+                   links[i].target = '_blank';
+               } 
+            }
+        </script>
+
+    </body>
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+    <head>
+        
+        <title>Lucas's 部落格</title>
+        <meta charset="utf-8" />
+                                                                
+
+        <!-- Mobile viewport optimized: j.mp/bplateviewport -->
+        <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1">
+
+        <link rel="stylesheet" type="text/css" href="/theme/gumby.css" />
+        <link rel="stylesheet" type="text/css" href="/theme/style.css" />
+        <link rel="stylesheet" type="text/css" href="/theme/pygment.css" />
+
+        <script src="/theme/js/libs/modernizr-2.6.2.min.js"></script>
+
+        
+            </head>
+
+    <body id="index" class="home">
+        <a href="https://github.com/lucaswei/lucaswei.github.io"><img style="position: absolute; top: 0px; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png" alt="Fork me on GitHub" /></a>
+
+        <div class="container">
+
+            <div class="row">
+
+                <header id="banner" class="body">
+                <h1><strong><a href="/">Lucas's 部落格</a></strong></h1><h3>Lucas's blogging space</h3>
+                </header><!-- /#banner -->
+
+                <div id="navigation" class="navbar row">
+                    <a href="#" gumby-trigger="#navigation &gt; ul" class="toggle"><i class="icon-menu"></i></a>
+
+                    <ul class="columns">
+                        <li><a href="/">Home</a></li>
+
+                                                                                                <li><a href="/pages/about-me.html">About Me</a></li>
+                                                
+                    </ul>
+                </div>
+
+                <section id="content">
+<h2>Articles in the SQL category</h2>
+
+
+   <div class="row">
+
+
+        <div class="eleven columns">
+		         <ol id="post-list">
+								        <li><article class="hentry">
+				                <header> <h2 class="entry-title"><a href="/sql-prepare-statement.html" rel="bookmark" title="Permalink to SQL prepare statement">SQL prepare statement</a></h2> </header>
+				                <footer class="post-info">
+				                    <abbr class="published" title="2013-08-17T23:49:00"> Sat 17 August 2013 </abbr>
+				                    <address class="vcard author">By <a class="url fn" href="/author/lucaswei.html">LucasWei</a></address>				                </footer><!-- /.post-info -->
+				                <div class="entry-content"> <p>今天在寫程式的時候意外的看到一段SQL  </p>
+
+<pre><code>    SELECT token FROM oauth_tokens WHERE userID = ? LIMIT 1
+</code></pre>
+
+<p>而其中的問號引起了我的注意，因為沒有看到<code>userID</code>在程式中出現，所以就查了一下SQL中問號的功用，後來在<a href="http://stackoverflow.com/questions/3727688/what-does-a-question-mark-represent-in-sql-queries">stackover裡面的這篇</a>好到答案，才發現他其實是一個好習慣，所以就順便筆記下來了</p>
+
+<h4>問號的功能，是用來變數化SQL查詢</h4>
+
+<p>他一種安全的作法用來取代原來的寫法</p>
+
+<pre><code>    ODBCCommand cmd = new ODBCCommand("SELECT thingA FROM tableA WHERE thingB = 7")
+    result = cmd.Execute()
+</code></pre>
+
+<p>這個寫法在<code>thingB</code>為固定值的時候沒有什麼問題，但是當你需要動態載入變數的時候，他就會需要寫成這樣（底下的方法是不建議的）</p>
+
+<pre><code>    string s = getStudentName()
+    cmd.CommandText = "SELECT * FROM students ...</code></pre> </div><!-- /.entry-content -->
+
+								<div class="medium primary btn"><a href="/sql-prepare-statement.html" rel="bookmark" title="Permalink to SQL prepare statement">Read more <i class="icon-arrow-right"></i></a></div>
+
+
+
+								<div class="row tag-row">
+																			<span>Tagged as : </span>
+																					<a class="danger label" href="/tag/sql.html">SQL</a>
+																					<a class="danger label" href="/tag/ubuntu.html">Ubuntu</a>
+																											</div>
+
+
+
+				        </article></li>
+								</ol><!-- /#posts-list -->
+
+        </div><!-- /.eleven.columns -->
+        
+     <div class="three columns">
+
+<h4>Pages</h4>
+
+ <ul>
+              <li><a href="/pages/about-me.html">About Me</a></li>
+        </ul>
+
+<h4>Categories</h4>
+<ul>
+			<li><a href="/category/python.html">Python</a></li>
+			<li><a href="/category/sql.html">SQL</a></li>
+			<li><a href="/category/tool.html">Tool</a></li>
+			<li><a href="/category/blogging.html">blogging</a></li>
+	</ul>
+
+
+<h4>Tags</h4>
+	<ul>
+		    <li class="tag-1"><a href="/tag/ubuntu.html">Ubuntu</a></li>
+		    <li class="tag-4"><a href="/tag/ubuntu.html">ubuntu</a></li>
+		    <li class="tag-4"><a href="/tag/sql.html">SQL</a></li>
+		    <li class="tag-4"><a href="/tag/python.html">python</a></li>
+		    <li class="tag-4"><a href="/tag/pelican.html">pelican</a></li>
+		    <li class="tag-4"><a href="/tag/xclip.html">xclip</a></li>
+		    <li class="tag-2"><a href="/tag/django.html">Django</a></li>
+	</ul>
+
+<nav class="widget">
+  <h4>Links</h4>
+  <ul>
+    </ul>
+</nav>
+
+<nav class="widget">
+  <h4>Social</h4>
+  <ul>
+      <li><a href="http://www.plurk.com/lucas0412">Plurk</a></li>
+      <li><a href="https://github.com/lucaswei">Github</a></li>
+    </ul>
+</nav>
+
+</div> </div><!-- /.row -->
+
+<p class="paginator">
+        Page 1 / 1
+    </p>
+</section><!-- /#content -->
+
+            </div><!-- /.row -->
+        </div><!-- /.container -->
+
+
+        <div class="container.nopad bg">
+
+
+            <footer id="credits" class="row">
+            <div class="seven columns left-center">
+
+                <address id="about" class="vcard body">
+                    Proudly powered by <a href="http://getpelican.com/">Pelican</a>,
+                    which takes great advantage of <a href="http://python.org">Python</a>.
+                    <br />
+                    Based on the <a target="_blank" href="http://gumbyframework.com">Gumby Framework</a>
+                </address>
+            </div>
+
+
+            <div class="seven columns">
+                <div class="row">
+                    <ul class="socbtns">
+
+                                                <li><div class="btn primary"><a href="https://github.com/lucaswei/lucaswei.github.io" target="_blank">Github</a></div></li>
+                        
+                        
+                        
+                        
+                    </ul>
+                </div>
+            </div>
+            </footer>
+
+        </div>
+
+
+                <script src="/theme/js/libs/jquery-1.9.1.min.js"></script>
+        <script src="/theme/js/libs/gumby.min.js"></script>
+        <script src="/theme/js/plugins.js"></script>
+        <script>
+            var links = document.links;
+
+            for (var i = 0, linksLength = links.length; i < linksLength; i++) {
+               if (links[i].hostname != window.location.hostname) {
+                   links[i].target = '_blank';
+               } 
+            }
+        </script>
+
+    </body>
+</html>

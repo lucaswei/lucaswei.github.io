@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+    <head>
+        
+        <title>setting django on apache server</title>
+        <meta charset="utf-8" />
+                                                                
+
+        <!-- Mobile viewport optimized: j.mp/bplateviewport -->
+        <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1">
+
+        <link rel="stylesheet" type="text/css" href="/theme/gumby.css" />
+        <link rel="stylesheet" type="text/css" href="/theme/style.css" />
+        <link rel="stylesheet" type="text/css" href="/theme/pygment.css" />
+
+        <script src="/theme/js/libs/modernizr-2.6.2.min.js"></script>
+
+        
+            </head>
+
+    <body id="index" class="home">
+        <a href="https://github.com/lucaswei/lucaswei.github.io"><img style="position: absolute; top: 0px; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png" alt="Fork me on GitHub" /></a>
+
+        <div class="container">
+
+            <div class="row">
+
+                <header id="banner" class="body">
+                <h1><strong><a href="/">Lucas's 部落格</a></strong></h1><h3>Lucas's blogging space</h3>
+                </header><!-- /#banner -->
+
+                <div id="navigation" class="navbar row">
+                    <a href="#" gumby-trigger="#navigation &gt; ul" class="toggle"><i class="icon-menu"></i></a>
+
+                    <ul class="columns">
+                        <li><a href="/">Home</a></li>
+
+                                                                                                <li><a href="/pages/about-me.html">About Me</a></li>
+                                                
+                    </ul>
+                </div>
+
+                <section id="content" class="body">
+
+   <div class="row">
+        <div class="eleven columns">
+
+
+            <header>
+              <h2 class="entry-title">
+                <a href="/setting-django-on-apache-server.html" rel="bookmark"
+                   title="Permalink to setting django on apache server">setting django on apache server</a></h2>
+                      
+            </header>
+            <footer class="post-info">
+              <abbr class="published" title="2013-08-17T23:50:00">
+                Sat 17 August 2013
+              </abbr>
+                            <address class="vcard author">
+                By <a class="url fn" href="/author/lucaswei.html">LucasWei</a>
+              </address>
+                          </footer><!-- /.post-info -->
+            <div class="entry-content">
+              <p>如果有在ubuntu上架設過LAMP的應該都知道，其實就是幾個指令，設定好密碼，還可以裝個phpmyadmin來管理資料庫，他的方便性大大降低了他的門檻，本著如此方便的精神，我覺得「安裝Django應該也很簡單吧？」就開始這段錯誤的過程，因為python不算是native支援網頁顯示的，使用一些module，或是使用以前CGI的方式來讓apache驅動他，外加上Django其實是包好好的Framework，所以在設定上就有這麼不人性點。所以，經過這麼多波折，我決定把這些過程記錄下來XD。</p>
+<h3>環境設定</h3>
+<p>首先，你需要
+1. 安裝server，並且安裝wsgi的module</p>
+<div class="highlight"><pre>    <span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">apache2</span> <span class="n">libapache2</span><span class="o">-</span><span class="n">mod</span><span class="o">-</span><span class="n">wsgi</span>
+</pre></div>
+
+
+<ol>
+<li>
+<p>安裝<a href="http://www.openfoundry.org/tw/tech-column/8536-introduction-of-python-extension-management-tools">python pip</a></p>
+<div class="highlight"><pre><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">python</span><span class="o">-</span><span class="n">setuptools</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>最後，再用pip安裝Django，之後的問題就隨之而來了（誤</p>
+<div class="highlight"><pre><span class="n">sudo</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">django</span>
+</pre></div>
+
+
+</li>
+</ol>
+<p>之後，在你想要撰寫的目錄下，新增一個資料夾，用來管理之後的程式（我是在家目錄底下新增/home/lucas/django）</p>
+<div class="highlight"><pre>    <span class="n">mkdir</span> <span class="o">~/</span><span class="n">django</span>
+</pre></div>
+
+
+<h3>IP設定</h3>
+<p>在hosts中新增幾個IP</p>
+<blockquote>
+<p>vi /etc/hosts</p>
+</blockquote>
+<div class="highlight"><pre><span class="mf">127.0.0.1</span>   <span class="n">localhost</span>
+<span class="mf">127.0.0.2</span>   <span class="n">wsgi</span><span class="p">.</span><span class="n">djangoserver</span>
+<span class="mf">127.0.0.3</span>   <span class="n">hello</span><span class="p">.</span><span class="n">djangoserver</span>
+</pre></div>
+
+
+<h3>測試WSGI是否可以執行</h3>
+<p>創建資料夾</p>
+<blockquote>
+<p>mkdir ~/django/myapp</p>
+</blockquote>
+<p>新增python的應用程式<code>wsgi.app</code></p>
+<blockquote>
+<p>vi ~/django/myapp/wsgi.app</p>
+</blockquote>
+<div class="highlight"><pre>    <span class="n">def</span> <span class="n">application</span><span class="p">(</span><span class="n">environ</span><span class="p">,</span> <span class="n">start_response</span><span class="p">)</span><span class="o">:</span>
+        <span class="n">status</span> <span class="o">=</span> <span class="err">&#39;</span><span class="mi">200</span> <span class="n">OK</span><span class="err">&#39;</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="err">&#39;</span><span class="n">Hello</span> <span class="n">World</span><span class="o">!</span><span class="err">&#39;</span>
+
+        <span class="n">response_headers</span> <span class="o">=</span> <span class="p">[(</span><span class="err">&#39;</span><span class="n">Content</span><span class="o">-</span><span class="n">type</span><span class="err">&#39;</span><span class="p">,</span> <span class="err">&#39;</span><span class="n">text</span><span class="o">/</span><span class="n">plain</span><span class="err">&#39;</span><span class="p">),</span>
+                            <span class="p">(</span><span class="err">&#39;</span><span class="n">Content</span><span class="o">-</span><span class="n">Length</span><span class="err">&#39;</span><span class="p">,</span> <span class="n">str</span><span class="p">(</span><span class="n">len</span><span class="p">(</span><span class="n">output</span><span class="p">)))]</span>
+        <span class="n">start_response</span><span class="p">(</span><span class="n">status</span><span class="p">,</span> <span class="n">response_headers</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="p">[</span><span class="n">output</span><span class="p">]</span>
+</pre></div>
+
+
+<p>新增apache的設定</p>
+<blockquote>
+<p>sudo vi /etc/apache2/sites-available/wsgi</p>
+</blockquote>
+<div class="highlight"><pre>    <span class="nt">&lt;VirtualHost</span> <span class="err">*:80</span><span class="nt">&gt;</span>
+
+        ServerName wsgi.djangoserver
+        DocumentRoot /home/lucas/django
+
+        <span class="nt">&lt;Directory</span> <span class="err">/home/lucas/django</span><span class="nt">&gt;</span>
+            Order allow,deny
+            Allow from all
+        <span class="nt">&lt;/Directory&gt;</span>
+
+        WSGIScriptAlias / /home/lucas/django/myapp/wsgi.app         
+    <span class="nt">&lt;/VirtualHost&gt;</span>
+</pre></div>
+
+
+<p>將設定檔生效</p>
+<blockquote>
+<p>sudo a2ensite
+  sudo service apache2 reload</p>
+</blockquote>
+<p>測試你的wsgi是否有效
+<a href="http://wsgi.djangoserver">http://wsgi.djangoserver</a>如果沒有看到<code>Hello World!</code>表示wsgi的設定就有問題了，可能需要先完成這個步驟，才可以繼續設定你的環境。</p>
+<h3>測試Django是否可以安裝</h3>
+<p>開啟一個Django的project</p>
+<blockquote>
+<p>mkdir ~/django
+  python django-admin.py mysite</p>
+</blockquote>
+<p>設定一個網站的wsgi file</p>
+<blockquote>
+<p>mkdir ~/django/apache
+  vi ~/django/apache/django.wsgi</p>
+</blockquote>
+<p>編輯<code>django.wsgi</code>的內容</p>
+<div class="highlight"><pre><span class="n">import</span> <span class="n">os</span>
+<span class="n">import</span> <span class="n">sys</span>
+
+<span class="n">path</span> <span class="o">=</span> <span class="err">&#39;</span><span class="o">/</span><span class="n">srv</span><span class="o">/</span><span class="n">www</span><span class="err">&#39;</span>
+<span class="k">if</span> <span class="n">path</span> <span class="n">not</span> <span class="n">in</span> <span class="n">sys</span><span class="p">.</span><span class="n">path</span><span class="o">:</span>
+    <span class="n">sys</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="err">&#39;</span><span class="o">/</span><span class="n">srv</span><span class="o">/</span><span class="n">www</span><span class="err">&#39;</span><span class="p">)</span>
+
+<span class="n">os</span><span class="p">.</span><span class="n">environ</span><span class="p">[</span><span class="err">&#39;</span><span class="n">DJANGO_SETTINGS_MODULE</span><span class="err">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="err">&#39;</span><span class="n">hello</span><span class="p">.</span><span class="n">settings</span><span class="err">&#39;</span>
+
+<span class="n">import</span> <span class="n">django</span><span class="p">.</span><span class="n">core</span><span class="p">.</span><span class="n">handlers</span><span class="p">.</span><span class="n">wsgi</span>
+<span class="n">application</span> <span class="o">=</span> <span class="n">django</span><span class="p">.</span><span class="n">core</span><span class="p">.</span><span class="n">handlers</span><span class="p">.</span><span class="n">wsgi</span><span class="p">.</span><span class="n">WSGIHandler</span><span class="p">()</span>
+</pre></div>
+
+
+<h2>新增一個apache site</h2>
+<blockquote>
+<p>sudo vi /etc/apache2/site-available/hello</p>
+</blockquote>
+<p>編輯<code>hello</code>的內容</p>
+<p><VirtualHost *:80></p>
+<div class="highlight"><pre><span class="nb">ServerName</span> <span class="nx">hello.djangoserver</span>
+<span class="nb">DocumentRoot</span> <span class="p">/</span><span class="nx">srv</span><span class="p">/</span><span class="nx">www</span><span class="p">/</span><span class="nx">hello</span>
+
+<span class="o">&lt;</span><span class="nx">Directory</span> <span class="p">/</span><span class="nx">srv</span><span class="p">/</span><span class="nx">www</span><span class="p">/</span><span class="nx">hello</span><span class="o">&gt;</span>
+    <span class="k">Order</span> <span class="nx">allow</span><span class="p">,</span><span class="nx">deny</span>
+    <span class="nx">Allow</span> <span class="nb">from</span> <span class="kc">all</span>
+<span class="o">&lt;/</span><span class="nx">Directory</span><span class="o">&gt;</span>
+
+<span class="nx">WSGIDaemonProcess</span> <span class="nx">hello.djangoserver</span> <span class="n">processes</span><span class="o">=</span><span class="mi">2</span> <span class="n">threads</span><span class="o">=</span><span class="mi">15</span> <span class="nx">display</span><span class="na">-name</span><span class="o">=%</span><span class="p">{</span><span class="k">GROUP</span><span class="p">}</span>
+<span class="nx">WSGIProcessGroup</span> <span class="nx">hello.djangoserver</span>
+
+<span class="nx">WSGIScriptAlias</span> <span class="o">/</span> <span class="p">/</span><span class="nx">srv</span><span class="p">/</span><span class="nx">www</span><span class="p">/</span><span class="nx">hello</span><span class="p">/</span><span class="nx">apache</span><span class="p">/</span><span class="nx">django.wsgi</span>
+
+<span class="o">&lt;/</span><span class="nx">VirtualHost</span><span class="o">&gt;</span>
+</pre></div>
+
+
+<p>啟動apache site</p>
+<blockquote>
+<p>sudo a2ensite hello
+  sudo /etc/init.d/apache2 reload</p>
+</blockquote>
+<p>使用瀏覽器啟動<a href="http://hello.djangoserver">http://hello.djangoserver</a>你就會看到歡迎頁面了</p>
+<p>參考：
+<a href="http://blog.stannard.net.au/2010/12/11/installing-django-with-apache-and-mod_wsgi-on-ubuntu-10-04/">Installing Django with Apache and mod_wsgi on Ubuntu 10.04</a>
+<a href="http://library.linode.com/frameworks/django-apache-mod-wsgi/ubuntu-10.04-lucid#sph_configure-django-applications-for-wsgi">Django, Apache and mod_wsgi on Ubuntu 10.04 (Lucid)</a></p>
+            </div><!-- /.entry-content -->
+            
+
+        </div><!-- /.eleven.columns -->
+        
+     <div class="three columns">
+
+<h4>Pages</h4>
+
+ <ul>
+              <li><a href="/pages/about-me.html">About Me</a></li>
+        </ul>
+
+<h4>Categories</h4>
+<ul>
+			<li><a href="/category/python.html">Python</a></li>
+			<li><a href="/category/sql.html">SQL</a></li>
+			<li><a href="/category/tool.html">Tool</a></li>
+			<li><a href="/category/blogging.html">blogging</a></li>
+	</ul>
+
+
+<h4>Tags</h4>
+	<ul>
+		    <li class="tag-1"><a href="/tag/ubuntu.html">Ubuntu</a></li>
+		    <li class="tag-4"><a href="/tag/ubuntu.html">ubuntu</a></li>
+		    <li class="tag-4"><a href="/tag/sql.html">SQL</a></li>
+		    <li class="tag-4"><a href="/tag/python.html">python</a></li>
+		    <li class="tag-4"><a href="/tag/pelican.html">pelican</a></li>
+		    <li class="tag-4"><a href="/tag/xclip.html">xclip</a></li>
+		    <li class="tag-2"><a href="/tag/django.html">Django</a></li>
+	</ul>
+
+<nav class="widget">
+  <h4>Links</h4>
+  <ul>
+    </ul>
+</nav>
+
+<nav class="widget">
+  <h4>Social</h4>
+  <ul>
+      <li><a href="http://www.plurk.com/lucas0412">Plurk</a></li>
+      <li><a href="https://github.com/lucaswei">Github</a></li>
+    </ul>
+</nav>
+
+</div> </div><!-- /.row -->
+
+
+</section>
+
+            </div><!-- /.row -->
+        </div><!-- /.container -->
+
+
+        <div class="container.nopad bg">
+
+
+            <footer id="credits" class="row">
+            <div class="seven columns left-center">
+
+                <address id="about" class="vcard body">
+                    Proudly powered by <a href="http://getpelican.com/">Pelican</a>,
+                    which takes great advantage of <a href="http://python.org">Python</a>.
+                    <br />
+                    Based on the <a target="_blank" href="http://gumbyframework.com">Gumby Framework</a>
+                </address>
+            </div>
+
+
+            <div class="seven columns">
+                <div class="row">
+                    <ul class="socbtns">
+
+                                                <li><div class="btn primary"><a href="https://github.com/lucaswei/lucaswei.github.io" target="_blank">Github</a></div></li>
+                        
+                        
+                        
+                        
+                    </ul>
+                </div>
+            </div>
+            </footer>
+
+        </div>
+
+
+                <script src="/theme/js/libs/jquery-1.9.1.min.js"></script>
+        <script src="/theme/js/libs/gumby.min.js"></script>
+        <script src="/theme/js/plugins.js"></script>
+        <script>
+            var links = document.links;
+
+            for (var i = 0, linksLength = links.length; i < linksLength; i++) {
+               if (links[i].hostname != window.location.hostname) {
+                   links[i].target = '_blank';
+               } 
+            }
+        </script>
+
+    </body>
+</html>
