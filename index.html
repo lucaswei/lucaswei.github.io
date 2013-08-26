@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
-<head>
+    <head>
         
         <title>Lucas's 部落格</title>
         <meta charset="utf-8" />
@@ -16,43 +16,42 @@
 
         <script src="/theme/js/libs/modernizr-2.6.2.min.js"></script>
 
-                        <script>
-                (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
                 m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-                })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-                ga('create', 'UA-43272616-1', 'lucaswei.github.io');
-                ga('send', 'pageview');
+            ga('create', 'UA-43272616-1', 'lucaswei.github.io');
+            ga('send', 'pageview');
 
-              </script>
-          
-        </head>
+        </script>
+        
+            </head>
 
-<body id="index" class="home">
-	<a href="https://github.com/lucaswei/lucaswei.github.io"><img style="position: absolute; top: 0px; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png" alt="Fork me on GitHub" /></a>
+    <body id="index" class="home">
+        <a href="https://github.com/lucaswei/lucaswei.github.io"><img style="position: absolute; top: 0px; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png" alt="Fork me on GitHub" /></a>
 
+        <div class="container">
 
-    <div class="container">
+            <div class="row">
 
-        <div class="row">
+                <header id="banner" class="body">
+                <h1><strong><a href="/">Lucas's 部落格</a></strong></h1><h3>Lucas's blogging space</h3>
+                </header><!-- /#banner -->
 
-          <header id="banner" class="body">
-              <h1><strong><a href="/">Lucas's 部落格</a></strong></h1><h3>Lucas's blogging space</h3>
-          </header><!-- /#banner -->
+                <div id="navigation" class="navbar row">
+                    <a href="#" gumby-trigger="#navigation &gt; ul" class="toggle"><i class="icon-menu"></i></a>
 
-            <div id="navigation" class="navbar row">
-              <a href="#" gumby-trigger="#navigation &gt; ul" class="toggle"><i class="icon-menu"></i></a>
-             
-              <ul class="columns">
-                <li><a href="/">Home</a></li>
+                    <ul class="columns">
+                        <li><a href="/">Home</a></li>
 
-                                                      <li><a href="/pages/about-me.html">About Me</a></li>
-                          
-              </ul>
-            </div>
+                                                                                                <li><a href="/pages/about-me.html">About Me</a></li>
+                                                
+                    </ul>
+                </div>
 
-          <section id="content">
+                <section id="content">
 
 
 
@@ -61,6 +60,33 @@
 
         <div class="eleven columns">
 		         <ol id="post-list">
+								        <li><article class="hentry">
+				                <header> <h2 class="entry-title"><a href="/wang-zhi-ban-qian-gai-yong-pelicanjing-tai-wang-zhi-sheng-cheng-qi.html" rel="bookmark" title="Permalink to 網誌搬遷-改用pelican靜態網誌生成器">網誌搬遷-改用pelican靜態網誌生成器</a></h2> </header>
+				                <footer class="post-info">
+				                    <abbr class="published" title="2013-08-27T21:07:00"> Tue 27 August 2013 </abbr>
+				                    <address class="vcard author">By <a class="url fn" href="/author/lucaswei.html">LucasWei</a></address>				                </footer><!-- /.post-info -->
+				                <div class="entry-content"> <p><img alt="搬家" src="/static/images/搬家.jpg" /></p>
+<p>一直想試試<a href="http://pages.github.com/">github page</a>很久了，但是基於懶惰與種種因素...所以一直沒有機會去研究，最近因為想要重新拾起寫網誌的習慣，所以上網研究了許多部落格的方案，
+因為雖然想要研究<a href="http://pages.github.com/">github page</a>，但是很多東西還是要重新研究，難免讓人覺得「只是想要寫個網誌而已，需要搞的這麼麻煩嗎？」，
+就因為這種懶惰的心態作祟，所以一直很不想直接去研究，而在當初的時間還有考慮使用<a href="http://logdown.com/">Logdown</a>，不過最後還是選擇了<a href="http://pages.github.com/">github page</a></p>
+<h3>選擇自己hosting部落格，而不使用Blogger的原因</h3>
+<p>最初有這個念頭是因為Blogger的編輯器是屬於<a href="http://en.wikipedia.org/wiki/WYSIWYG">所見即所得</a>的編輯界面，一來很多編輯過的文字特性沒有可稀性，因為編寫完後的內容，會被轉換成<strong>沒有維護性</strong>的HTML程式碼，所以沒有辦法使用到其他地方，除非你尋著原本的HTML使用，
+二來，張貼程式碼很不方便，要在一般界面和原始碼界面之間切換，當初使用的方法是先把文字內容編輯好後，再切換到HTML編輯器一一插入片段的程式碼，除了常常插錯，也沒有辦法針對程式碼做syntax highlight。</p>
+<p>因為編寫的文章比較沒有需要許多絢麗的特效，所以考慮使用<a href="http://daringfireball.net/projects/markdown/syntax">markdown</a>進行編輯，等到編輯好了之後，再將markdown轉換成HTML直接貼到blogger的編輯界面上；既可以備份原始文字，也解決了編輯不方便的問題 ...</p> </div><!-- /.entry-content -->
+
+								<div class="medium primary btn"><a href="/wang-zhi-ban-qian-gai-yong-pelicanjing-tai-wang-zhi-sheng-cheng-qi.html" rel="bookmark" title="Permalink to 網誌搬遷-改用pelican靜態網誌生成器">Read more <i class="icon-arrow-right"></i></a></div>
+
+
+
+								<div class="row tag-row">
+																			<span>Tagged as : </span>
+																					<a class="danger label" href="/tag/python.html">python</a>
+																					<a class="danger label" href="/tag/pelican.html">pelican</a>
+																											</div>
+
+
+
+				        </article></li>
 								        <li><article class="hentry">
 				                <header> <h2 class="entry-title"><a href="/xclip-hao-yong-de-terminal-filejian-tie-gong-ju.html" rel="bookmark" title="Permalink to xclip-好用的terminal file剪貼工具">xclip-好用的terminal file剪貼工具</a></h2> </header>
 				                <footer class="post-info">
@@ -265,16 +291,19 @@
 			<li><a href="/category/python.html">Python</a></li>
 			<li><a href="/category/sql.html">SQL</a></li>
 			<li><a href="/category/tool.html">Tool</a></li>
+			<li><a href="/category/blogging.html">blogging</a></li>
 	</ul>
 
 
 <h4>Tags</h4>
 	<ul>
-		    <li class="tag-4"><a href="/tag/sql.html">SQL</a></li>
-		    <li class="tag-4"><a href="/tag/ubuntu.html">ubuntu</a></li>
-		    <li class="tag-1"><a href="/tag/ubuntu.html">Ubuntu</a></li>
-		    <li class="tag-2"><a href="/tag/django.html">Django</a></li>
 		    <li class="tag-4"><a href="/tag/xclip.html">xclip</a></li>
+		    <li class="tag-4"><a href="/tag/python.html">python</a></li>
+		    <li class="tag-4"><a href="/tag/pelican.html">pelican</a></li>
+		    <li class="tag-1"><a href="/tag/ubuntu.html">Ubuntu</a></li>
+		    <li class="tag-4"><a href="/tag/ubuntu.html">ubuntu</a></li>
+		    <li class="tag-4"><a href="/tag/sql.html">SQL</a></li>
+		    <li class="tag-2"><a href="/tag/django.html">Django</a></li>
 	</ul>
 
 <nav class="widget">
@@ -298,43 +327,43 @@
     </p>
 </section><!-- /#content -->
 
-       </div><!-- /.row -->
-    </div><!-- /.container -->
+            </div><!-- /.row -->
+        </div><!-- /.container -->
 
 
-       <div class="container.nopad bg">
+        <div class="container.nopad bg">
 
-    
-        <footer id="credits" class="row">
-          <div class="seven columns left-center">
 
-                   <address id="about" class="vcard body">
+            <footer id="credits" class="row">
+            <div class="seven columns left-center">
+
+                <address id="about" class="vcard body">
                     Proudly powered by <a href="http://getpelican.com/">Pelican</a>,
                     which takes great advantage of <a href="http://python.org">Python</a>.
                     <br />
                     Based on the <a target="_blank" href="http://gumbyframework.com">Gumby Framework</a>
-                    </address>
-          </div>
-
-
-          <div class="seven columns">
-            <div class="row">
-              <ul class="socbtns">
-
-                                <li><div class="btn primary"><a href="https://github.com/lucaswei/lucaswei.github.io" target="_blank">Github</a></div></li>
-                
-                
-                
-                
-              </ul>
+                </address>
             </div>
-          </div>
-        </footer>
-
-    </div>
 
 
-<script type="text/javascript">
+            <div class="seven columns">
+                <div class="row">
+                    <ul class="socbtns">
+
+                                                <li><div class="btn primary"><a href="https://github.com/lucaswei/lucaswei.github.io" target="_blank">Github</a></div></li>
+                        
+                        
+                        
+                        
+                    </ul>
+                </div>
+            </div>
+            </footer>
+
+        </div>
+
+
+        <script type="text/javascript">
     var disqus_shortname = 'lucasweisblog';
     (function () {
         var s = document.createElement('script'); s.async = true;
@@ -343,9 +372,18 @@
         (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
     }());
 </script>
-  <script src="/theme/js/libs/jquery-1.9.1.min.js"></script>
-  <script src="/theme/js/libs/gumby.min.js"></script>
-  <script src="/theme/js/plugins.js"></script>
+        <script src="/theme/js/libs/jquery-1.9.1.min.js"></script>
+        <script src="/theme/js/libs/gumby.min.js"></script>
+        <script src="/theme/js/plugins.js"></script>
+        <script>
+            var links = document.links;
 
-</body>
+            for (var i = 0, linksLength = links.length; i < linksLength; i++) {
+               if (links[i].hostname != window.location.hostname) {
+                   links[i].target = '_blank';
+               } 
+            }
+        </script>
+
+    </body>
 </html>

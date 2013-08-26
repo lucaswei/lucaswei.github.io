@@ -2,11 +2,10 @@
 <html lang="zh-TW">
     <head>
         
-        <title>Lucas's 部落格</title>
+        <title>Lucas's 部落格 - python</title>
         <meta charset="utf-8" />
                 <link href="/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Lucas's 部落格 Full Atom Feed" />
-                                                <link href="/feeds/sql.atom.xml" type="application/atom+xml" rel="alternate" title="Lucas's 部落格 Categories Atom Feed" />
-                                
+                                                                
 
         <!-- Mobile viewport optimized: j.mp/bplateviewport -->
         <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1">
@@ -53,7 +52,7 @@
                 </div>
 
                 <section id="content">
-<h2>Articles in the SQL category</h2>
+
 
 
    <div class="row">
@@ -62,38 +61,27 @@
         <div class="eleven columns">
 		         <ol id="post-list">
 								        <li><article class="hentry">
-				                <header> <h2 class="entry-title"><a href="/sql-prepare-statement.html" rel="bookmark" title="Permalink to SQL prepare statement">SQL prepare statement</a></h2> </header>
+				                <header> <h2 class="entry-title"><a href="/wang-zhi-ban-qian-gai-yong-pelicanjing-tai-wang-zhi-sheng-cheng-qi.html" rel="bookmark" title="Permalink to 網誌搬遷-改用pelican靜態網誌生成器">網誌搬遷-改用pelican靜態網誌生成器</a></h2> </header>
 				                <footer class="post-info">
-				                    <abbr class="published" title="2013-08-17T23:49:00"> Sat 17 August 2013 </abbr>
+				                    <abbr class="published" title="2013-08-27T21:07:00"> Tue 27 August 2013 </abbr>
 				                    <address class="vcard author">By <a class="url fn" href="/author/lucaswei.html">LucasWei</a></address>				                </footer><!-- /.post-info -->
-				                <div class="entry-content"> <p>今天在寫程式的時候意外的看到一段SQL  </p>
+				                <div class="entry-content"> <p><img alt="搬家" src="/static/images/搬家.jpg" /></p>
+<p>一直想試試<a href="http://pages.github.com/">github page</a>很久了，但是基於懶惰與種種因素...所以一直沒有機會去研究，最近因為想要重新拾起寫網誌的習慣，所以上網研究了許多部落格的方案，
+因為雖然想要研究<a href="http://pages.github.com/">github page</a>，但是很多東西還是要重新研究，難免讓人覺得「只是想要寫個網誌而已，需要搞的這麼麻煩嗎？」，
+就因為這種懶惰的心態作祟，所以一直很不想直接去研究，而在當初的時間還有考慮使用<a href="http://logdown.com/">Logdown</a>，不過最後還是選擇了<a href="http://pages.github.com/">github page</a></p>
+<h3>選擇自己hosting部落格，而不使用Blogger的原因</h3>
+<p>最初有這個念頭是因為Blogger的編輯器是屬於<a href="http://en.wikipedia.org/wiki/WYSIWYG">所見即所得</a>的編輯界面，一來很多編輯過的文字特性沒有可稀性，因為編寫完後的內容，會被轉換成<strong>沒有維護性</strong>的HTML程式碼，所以沒有辦法使用到其他地方，除非你尋著原本的HTML使用，
+二來，張貼程式碼很不方便，要在一般界面和原始碼界面之間切換，當初使用的方法是先把文字內容編輯好後，再切換到HTML編輯器一一插入片段的程式碼，除了常常插錯，也沒有辦法針對程式碼做syntax highlight。</p>
+<p>因為編寫的文章比較沒有需要許多絢麗的特效，所以考慮使用<a href="http://daringfireball.net/projects/markdown/syntax">markdown</a>進行編輯，等到編輯好了之後，再將markdown轉換成HTML直接貼到blogger的編輯界面上；既可以備份原始文字，也解決了編輯不方便的問題 ...</p> </div><!-- /.entry-content -->
 
-<pre><code>    SELECT token FROM oauth_tokens WHERE userID = ? LIMIT 1
-</code></pre>
-
-<p>而其中的問號引起了我的注意，因為沒有看到<code>userID</code>在程式中出現，所以就查了一下SQL中問號的功用，後來在<a href="http://stackoverflow.com/questions/3727688/what-does-a-question-mark-represent-in-sql-queries">stackover裡面的這篇</a>好到答案，才發現他其實是一個好習慣，所以就順便筆記下來了</p>
-
-<h4>問號的功能，是用來變數化SQL查詢</h4>
-
-<p>他一種安全的作法用來取代原來的寫法</p>
-
-<pre><code>    ODBCCommand cmd = new ODBCCommand("SELECT thingA FROM tableA WHERE thingB = 7")
-    result = cmd.Execute()
-</code></pre>
-
-<p>這個寫法在<code>thingB</code>為固定值的時候沒有什麼問題，但是當你需要動態載入變數的時候，他就會需要寫成這樣（底下的方法是不建議的）</p>
-
-<pre><code>    string s = getStudentName()
-    cmd.CommandText = "SELECT * FROM students ...</code></pre> </div><!-- /.entry-content -->
-
-								<div class="medium primary btn"><a href="/sql-prepare-statement.html" rel="bookmark" title="Permalink to SQL prepare statement">Read more <i class="icon-arrow-right"></i></a></div>
+								<div class="medium primary btn"><a href="/wang-zhi-ban-qian-gai-yong-pelicanjing-tai-wang-zhi-sheng-cheng-qi.html" rel="bookmark" title="Permalink to 網誌搬遷-改用pelican靜態網誌生成器">Read more <i class="icon-arrow-right"></i></a></div>
 
 
 
 								<div class="row tag-row">
 																			<span>Tagged as : </span>
-																					<a class="danger label" href="/tag/sql.html">SQL</a>
-																					<a class="danger label" href="/tag/ubuntu.html">Ubuntu</a>
+																					<a class="danger label" href="/tag/python.html">python</a>
+																					<a class="danger label" href="/tag/pelican.html">pelican</a>
 																											</div>
 
 
