@@ -1,5 +1,5 @@
 Title: 網誌搬遷-改用pelican靜態網誌生成器
-Date: 2013-08-22 21:07
+Date: 2013-08-27 21:07
 Tags: python, pelican
 
 ![搬家](/static/images/搬家.jpg)
@@ -55,20 +55,88 @@ Tags: python, pelican
 
 [Getting started]: http://docs.getpelican.com/en/3.2/getting_started.html
 
-#### 申請一個github page帳號
+#### 建立一個github page的repository
 
 開一個repo，名稱需要和帳號相同，並且clone回本地端，因為github page顯示的主要是branch:master的內容，所以需要先開一個branch用來存放網誌的內容，
 
     :::bash
     git branch --orphan gh-pages
 
-再把pelican-quickstart的資料夾移入，或者在這個branch進行quickstart
+
+#### 開始建立你的第一個部落格專案
+
+切換到gh-pages的branch
+
+    :::bash
+    git checkout gh-pages
+
+建立你的部落格
+
+    :::bash
+    pelican-quickstart
+
+之後會產生的檔案結構如下：
+
+    :::text
+    yourproject/
+    ├── content
+    │   └── (pages)
+    ├── output
+    ├── develop_server.sh
+    ├── Makefile
+    ├── pelicanconf.py       # Main settings file
+    └── publishconf.py       # Settings to use when ready to publish
 
 #### 修改Makefile
 
+在輸入完`pelican-quickstart`後，會出現比較細項的問題，例如佈署的細節設定（EX:ftp, Dropbox, scp, **Github page**），在修改後會產生許多檔案和一個Makefile，
+而這個Makefile是以後用來編你的部落格，佈署的時候使用的，他也有使用到Python的自帶server，可以讓你不用花時間佈署，直接在本地端檢視。
+
+因為Github page預設會呈現branch:master內的檔案，而我的Makefile中，如果想要佈署在Github的話，預設是把他編譯玩的結果推到branch:gh-pages上，因此在這邊需要修改
+
+    :::makefile
+    github: publish
+        ghp-import -b master $(OUTPUTDIR)
+        git push origin master
+
+如果有其他想要佈署的機器或者設定，都可以自己新增在這邊，方便以後佈署跟操作。
+
+#### 撰寫文章
+
+完成以上的步驟後，你就可以開始寫部落格了！
+
+文章預設都是放在content資料下內，可以複製底下的範例到裡面：
+
+    :::text
+    Title: My super title
+    Date: 2010-12-03 10:20
+    Category: Python
+    Tags: pelican, publishing
+    Slug: my-super-post
+    Author: Alexis Metaireau
+    Summary: Short version for index and feeds
+
+    This is the content of my super blog post.
+
+之後直接佈署到Github page上，就可以上去看結果囉，
+
+    make github
+
+確認有之後就可以前往你的Github page看看（http://_REPO_NAME_.github.io），有時候他更新的速度沒有這麼快，需要稍等一下。
+
+**或者**，在本地端編譯後連到本地端看，預設是http://localhost:8000
+
+    :::bash
+    make html
+    make serv
+
+_建議使用兩個terminal，一個開啟server，一個用來測試跟編譯。_
+
+如果看到頁面就大功告成囉！
 
 ### Reference
 
 1. [用 Pelican 和 GitHub Pages 搭建免费的个人博客 | 晓风'Blog'](http://www.dongxf.com/3_Build_Personal_Blog_With_Pelican_And_GitHub_Pages.html)
 2. [網誌搬家！改用 Pelican + GitHub Pages | J. S. Liang (Jenny)](http://jsliang.com/blog/2013/02/moving-to-pelican-hosting-on-github-pages.html)
 3. [從octorpess搬家到pelican](http://blog.codylab.com/From-Octopress-To-Pelican/)
+4. [How to use Pelican on GitHub Pages](https://gist.github.com/josefjezek/6053301)
