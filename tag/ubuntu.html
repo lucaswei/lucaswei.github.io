@@ -63,6 +63,39 @@
         <div class="eleven columns">
 		         <ol id="post-list">
 								        <li><article class="hentry">
+				                <header> <h2 class="entry-title"><a href="/gitgeng-xin-suo-you-submoduleshi-de-zhi-ling.html" rel="bookmark" title="Permalink to git更新所有submodule時的指令">git更新所有submodule時的指令</a></h2> </header>
+				                <footer class="post-info">
+				                    <abbr class="published" title="2013-09-15T07:29:00"> Sun 15 September 2013 </abbr>
+				                    <address class="vcard author">By <a class="url fn" href="/author/lucaswei.html">LucasWei</a></address>				                </footer><!-- /.post-info -->
+				                <div class="entry-content"> <p>git在submodule的管理中，為了讓開發團隊的程式相依性能夠一致，所以當你clone一個專案下來，並且使用<code>git submodule update --init</code>的時候，其實你只會把他submodule更新到和
+<strong>專案當初在管理時，使用的submodule</strong>版本而已，而不一定是最新的版本。</p>
+<p>當然如果以開發軟體的角度來看這樣的特性是好的，可以確保所有共同開發的人都使用相同的版本，但是我今天在管理<a href="https://github.com/lucaswei/vimrc/tree/master/bundle">自己的vim</a>的時候，因為底下有許多plug-in仍然在更新，
+所以我想要從github上更新自己有在使用的plug-in，但是如果每個plug-in要更新，難道只能使用</p>
+<div class="highlight"><pre><span class="nb">cd </span>bundle/plug-in1
+git clone origin master
+<span class="nb">cd</span> ../plug-in2
+git ...
+</pre></div>
+
+
+<p>就顯得很麻煩，記得當初在修課的時候有提到<a href="http://en.wikipedia.org/wiki/Xargs">xargs</a>，前一次更新的時候就使用這個功能，利用shell來撰寫，不過也險得很多此一舉，
+今天上網查了以後，參考了stackoverflow上的<a href="http://stackoverflow.com/questions/1030169/easy-way-pull-latest-of-all-submodules">這篇</a>，發現其實git裡面就有這個貼心的設計，所以特別做一下筆記，紀錄一下，其實只要</p>
+<div class="highlight"><pre>git submodule foreach git ...</pre></div> </div><!-- /.entry-content -->
+
+								<div class="medium primary btn"><a href="/gitgeng-xin-suo-you-submoduleshi-de-zhi-ling.html" rel="bookmark" title="Permalink to git更新所有submodule時的指令">Read more <i class="icon-arrow-right"></i></a></div>
+
+
+
+								<div class="row tag-row">
+																			<span>Tagged as : </span>
+																					<a class="danger label" href="/tag/git.html">git</a>
+																					<a class="danger label" href="/tag/ubuntu.html">ubuntu</a>
+																											</div>
+
+
+
+				        </article></li>
+								        <li><article class="hentry">
 				                <header> <h2 class="entry-title"><a href="/xclip-hao-yong-de-terminal-filejian-tie-gong-ju.html" rel="bookmark" title="Permalink to xclip-好用的terminal file剪貼工具">xclip-好用的terminal file剪貼工具</a></h2> </header>
 				                <footer class="post-info">
 				                    <abbr class="published" title="2013-08-17T23:51:00"> Sat 17 August 2013 </abbr>
@@ -133,22 +166,24 @@
 
 <h4>Categories</h4>
 <ul>
+			<li><a href="/category/python.html">Python</a></li>
 			<li><a href="/category/sql.html">SQL</a></li>
 			<li><a href="/category/tool.html">Tool</a></li>
 			<li><a href="/category/blogging.html">blogging</a></li>
-			<li><a href="/category/python.html">python</a></li>
+			<li><a href="/category/git.html">git</a></li>
 	</ul>
 
 
 <h4>Tags</h4>
 	<ul>
+		    <li class="tag-4"><a href="/tag/git.html">git</a></li>
 		    <li class="tag-2"><a href="/tag/django.html">Django</a></li>
-		    <li class="tag-4"><a href="/tag/xclip.html">xclip</a></li>
-		    <li class="tag-4"><a href="/tag/ubuntu.html">ubuntu</a></li>
-		    <li class="tag-4"><a href="/tag/sql.html">SQL</a></li>
-		    <li class="tag-1"><a href="/tag/ubuntu.html">Ubuntu</a></li>
-		    <li class="tag-4"><a href="/tag/pelican.html">pelican</a></li>
 		    <li class="tag-4"><a href="/tag/python.html">python</a></li>
+		    <li class="tag-4"><a href="/tag/pelican.html">pelican</a></li>
+		    <li class="tag-2"><a href="/tag/ubuntu.html">ubuntu</a></li>
+		    <li class="tag-1"><a href="/tag/ubuntu.html">Ubuntu</a></li>
+		    <li class="tag-4"><a href="/tag/xclip.html">xclip</a></li>
+		    <li class="tag-4"><a href="/tag/sql.html">SQL</a></li>
 	</ul>
 
 <nav class="widget">

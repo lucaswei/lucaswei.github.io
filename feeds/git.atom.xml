@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Lucas's 部落格</title><link href="/" rel="alternate"></link><link href="/feeds/git.atom.xml" rel="self"></link><id>/</id><updated>2013-09-15T07:29:00+08:00</updated><entry><title>git更新所有submodule時的指令</title><link href="/gitgeng-xin-suo-you-submoduleshi-de-zhi-ling.html" rel="alternate"></link><updated>2013-09-15T07:29:00+08:00</updated><author><name>LucasWei</name></author><id>tag:,2013-09-15:gitgeng-xin-suo-you-submoduleshi-de-zhi-ling.html</id><summary type="html">&lt;p&gt;git在submodule的管理中，為了讓開發團隊的程式相依性能夠一致，所以當你clone一個專案下來，並且使用&lt;code&gt;git submodule update --init&lt;/code&gt;的時候，其實你只會把他submodule更新到和
+&lt;strong&gt;專案當初在管理時，使用的submodule&lt;/strong&gt;版本而已，而不一定是最新的版本。&lt;/p&gt;
+&lt;p&gt;當然如果以開發軟體的角度來看這樣的特性是好的，可以確保所有共同開發的人都使用相同的版本，但是我今天在管理&lt;a href="https://github.com/lucaswei/vimrc/tree/master/bundle"&gt;自己的vim&lt;/a&gt;的時候，因為底下有許多plug-in仍然在更新，
+所以我想要從github上更新自己有在使用的plug-in，但是如果每個plug-in要更新，難道只能使用&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nb"&gt;cd &lt;/span&gt;bundle/plug-in1
+git clone origin master
+&lt;span class="nb"&gt;cd&lt;/span&gt; ../plug-in2
+git ...
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;就顯得很麻煩，記得當初在修課的時候有提到&lt;a href="http://en.wikipedia.org/wiki/Xargs"&gt;xargs&lt;/a&gt;，前一次更新的時候就使用這個功能，利用shell來撰寫，不過也險得很多此一舉，
+今天上網查了以後，參考了stackoverflow上的&lt;a href="http://stackoverflow.com/questions/1030169/easy-way-pull-latest-of-all-submodules"&gt;這篇&lt;/a&gt;，發現其實git裡面就有這個貼心的設計，所以特別做一下筆記，紀錄一下，其實只要&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;git submodule foreach git pull origin master
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;就可以了，著實方便很多，也比自己當初使用xargs短的多，也簡單多，不過偶爾自己慢慢查，編寫xarg也是頗有趣味:p。&lt;/p&gt;</summary><category term="git"></category><category term="ubuntu"></category></entry></feed>

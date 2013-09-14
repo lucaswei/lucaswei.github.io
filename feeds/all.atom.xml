@@ -1,5 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Lucas's 部落格</title><link href="/" rel="alternate"></link><link href="/feeds/all.atom.xml" rel="self"></link><id>/</id><updated>2013-08-27T21:07:00+08:00</updated><entry><title>網誌搬遷-改用pelican靜態網誌生成器</title><link href="/wang-zhi-ban-qian-gai-yong-pelicanjing-tai-wang-zhi-sheng-cheng-qi.html" rel="alternate"></link><updated>2013-08-27T21:07:00+08:00</updated><author><name>LucasWei</name></author><id>tag:,2013-08-27:wang-zhi-ban-qian-gai-yong-pelicanjing-tai-wang-zhi-sheng-cheng-qi.html</id><summary type="html">&lt;p&gt;&lt;img alt="搬家" src="/static/images/搬家.jpg" /&gt;&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Lucas's 部落格</title><link href="/" rel="alternate"></link><link href="/feeds/all.atom.xml" rel="self"></link><id>/</id><updated>2013-09-15T07:29:00+08:00</updated><entry><title>git更新所有submodule時的指令</title><link href="/gitgeng-xin-suo-you-submoduleshi-de-zhi-ling.html" rel="alternate"></link><updated>2013-09-15T07:29:00+08:00</updated><author><name>LucasWei</name></author><id>tag:,2013-09-15:gitgeng-xin-suo-you-submoduleshi-de-zhi-ling.html</id><summary type="html">&lt;p&gt;git在submodule的管理中，為了讓開發團隊的程式相依性能夠一致，所以當你clone一個專案下來，並且使用&lt;code&gt;git submodule update --init&lt;/code&gt;的時候，其實你只會把他submodule更新到和
+&lt;strong&gt;專案當初在管理時，使用的submodule&lt;/strong&gt;版本而已，而不一定是最新的版本。&lt;/p&gt;
+&lt;p&gt;當然如果以開發軟體的角度來看這樣的特性是好的，可以確保所有共同開發的人都使用相同的版本，但是我今天在管理&lt;a href="https://github.com/lucaswei/vimrc/tree/master/bundle"&gt;自己的vim&lt;/a&gt;的時候，因為底下有許多plug-in仍然在更新，
+所以我想要從github上更新自己有在使用的plug-in，但是如果每個plug-in要更新，難道只能使用&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nb"&gt;cd &lt;/span&gt;bundle/plug-in1
+git clone origin master
+&lt;span class="nb"&gt;cd&lt;/span&gt; ../plug-in2
+git ...
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;就顯得很麻煩，記得當初在修課的時候有提到&lt;a href="http://en.wikipedia.org/wiki/Xargs"&gt;xargs&lt;/a&gt;，前一次更新的時候就使用這個功能，利用shell來撰寫，不過也險得很多此一舉，
+今天上網查了以後，參考了stackoverflow上的&lt;a href="http://stackoverflow.com/questions/1030169/easy-way-pull-latest-of-all-submodules"&gt;這篇&lt;/a&gt;，發現其實git裡面就有這個貼心的設計，所以特別做一下筆記，紀錄一下，其實只要&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;git submodule foreach git pull origin master
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;就可以了，著實方便很多，也比自己當初使用xargs短的多，也簡單多，不過偶爾自己慢慢查，編寫xarg也是頗有趣味:p。&lt;/p&gt;</summary><category term="git"></category><category term="ubuntu"></category></entry><entry><title>網誌搬遷-改用pelican靜態網誌生成器</title><link href="/wang-zhi-ban-qian-gai-yong-pelicanjing-tai-wang-zhi-sheng-cheng-qi.html" rel="alternate"></link><updated>2013-08-27T21:07:00+08:00</updated><author><name>LucasWei</name></author><id>tag:,2013-08-27:wang-zhi-ban-qian-gai-yong-pelicanjing-tai-wang-zhi-sheng-cheng-qi.html</id><summary type="html">&lt;p&gt;&lt;img alt="搬家" src="/static/images/搬家.jpg" /&gt;&lt;/p&gt;
 &lt;p&gt;一直想試試&lt;a href="http://pages.github.com/"&gt;github page&lt;/a&gt;很久了，但是基於懶惰與種種因素...所以一直沒有機會去研究，最近因為想要重新拾起寫網誌的習慣，所以上網研究了許多部落格的方案，
 因為雖然想要研究&lt;a href="http://pages.github.com/"&gt;github page&lt;/a&gt;，但是很多東西還是要重新研究，難免讓人覺得「只是想要寫個網誌而已，需要搞的這麼麻煩嗎？」，
 就因為這種懶惰的心態作祟，所以一直很不想直接去研究，而在當初的時間還有考慮使用&lt;a href="http://logdown.com/"&gt;Logdown&lt;/a&gt;，不過最後還是選擇了&lt;a href="http://pages.github.com/"&gt;github page&lt;/a&gt;&lt;/p&gt;
