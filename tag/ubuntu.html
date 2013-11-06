@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="zh-tw">
+<html lang="zh-TW">
     <head>
-
+        
         <title>Lucas's 部落格 - Ubuntu</title>
         <meta charset="utf-8" />
-        <link href="/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Lucas's 部落格 Full Atom Feed" />
-
+                <link href="/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Lucas's 部落格 Full Atom Feed" />
+                                                                
 
         <!-- Mobile viewport optimized: j.mp/bplateviewport -->
         <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1">
@@ -16,7 +16,7 @@
 
         <script src="/theme/js/libs/modernizr-2.6.2.min.js"></script>
 
-        <script>
+                <script>
             (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
                     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
                 m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -26,11 +26,11 @@
             ga('send', 'pageview');
 
         </script>
-
-    </head>
+        
+            </head>
 
     <body id="index" class="home">
-<a href="https://github.com/lucaswei/lucaswei.github.io"><img style="position: absolute; top: 0px; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png" alt="Fork me on GitHub" /></a>
+        <a href="https://github.com/lucaswei/lucaswei.github.io"><img style="position: absolute; top: 0px; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png" alt="Fork me on GitHub" /></a>
 
         <div class="container">
 
@@ -46,12 +46,12 @@
                     <ul class="columns">
                         <li><a href="/">Home</a></li>
 
-                        <li><a href="/pages/about-me.html">About Me</a></li>
-
+                                                                                                <li><a href="/pages/about-me.html">About Me</a></li>
+                                                
                     </ul>
                 </div>
 
-<section id="content">
+                <section id="content">
 
 
 
@@ -60,101 +60,11 @@
 
         <div class="eleven columns">
 		         <ol id="post-list">
-				        <li><article class="hentry">
-				                <header> <h2 class="entry-title"><a href="/gitgeng-xin-suo-you-submoduleshi-de-zhi-ling.html" rel="bookmark" title="Permalink to git更新所有submodule時的指令">git更新所有submodule時的指令</a></h2> </header>
-				                <footer class="post-info">
-				                    <abbr class="published" title="2013-09-15T07:29:00"> Sun 15 September 2013 </abbr>
-<address class="vcard author">By <a class="url fn" href="/author/lucaswei.html">LucasWei</a></address>				                </footer><!-- /.post-info -->
-				                <div class="entry-content"> <p>git在submodule的管理中，為了讓開發團隊的程式相依性能夠一致，所以當你clone一個專案下來，並且使用<code>git submodule update --init</code>的時候，其實你只會把他submodule更新到和
-<strong>專案當初在管理時，使用的submodule</strong>版本而已，而不一定是最新的版本。</p>
-<p>當然如果以開發軟體的角度來看這樣的特性是好的，可以確保所有共同開發的人都使用相同的版本，但是我今天在管理<a href="https://github.com/lucaswei/vimrc/tree/master/bundle">自己的vim</a>的時候，因為底下有許多plug-in仍然在更新，
-所以我想要從github上更新自己有在使用的plug-in，但是如果每個plug-in要更新，難道只能使用</p>
-<div class="highlight"><pre><span class="nb">cd </span>bundle/plug-in1
-git clone origin master
-<span class="nb">cd</span> ../plug-in2
-git ...
-</pre></div>
-
-
-<p>就顯得很麻煩，記得當初在修課的時候有提到<a href="http://en.wikipedia.org/wiki/Xargs">xargs</a>，前一次更新的時候就使用這個功能，利用shell來撰寫，不過也險得很多此一舉，
-今天上網查了以後，參考了stackoverflow上的<a href="http://stackoverflow.com/questions/1030169/easy-way-pull-latest-of-all-submodules">這篇</a>，發現其實git裡面就有這個貼心的設計，所以特別做一下筆記，紀錄一下，其實只要</p>
-<div class="highlight"><pre>git submodule foreach git ...</pre></div> </div><!-- /.entry-content -->
-
-								<div class="medium primary btn"><a href="/gitgeng-xin-suo-you-submoduleshi-de-zhi-ling.html" rel="bookmark" title="Permalink to git更新所有submodule時的指令">Read more <i class="icon-arrow-right"></i></a></div>
-
-
-
-								<div class="row tag-row">
-										<span>Tagged as : </span>
-											<a class="danger label" href="/tag/git.html">git</a>
-											<a class="danger label" href="/tag/ubuntu.html">ubuntu</a>
-								</div>
-
-
-
-				        </article></li>
-				        <li><article class="hentry">
-				                <header> <h2 class="entry-title"><a href="/xclip-hao-yong-de-terminal-filejian-tie-gong-ju.html" rel="bookmark" title="Permalink to xclip-好用的terminal file剪貼工具">xclip-好用的terminal file剪貼工具</a></h2> </header>
-				                <footer class="post-info">
-				                    <abbr class="published" title="2013-08-17T23:51:00"> Sat 17 August 2013 </abbr>
-<address class="vcard author">By <a class="url fn" href="/author/lucaswei.html">LucasWei</a></address>				                </footer><!-- /.post-info -->
-				                <div class="entry-content"> <p>如果常使用vim編輯檔案可能會遇到一個問題，</p>
-<blockquote>
-<p>如果想要將某個檔案的內容複製到其他地方要怎麼辦？</p>
-</blockquote>
-<p>因為vim是使用終端機內的文字編排，所以即使是使用滑鼠游標選取之後在貼上，難免會有許多邊界偵測的問題，以及複製到不必要的字元，因此這個時候還是需要使用GUI的編輯器（EX:geditor）來開啟並且複製。</p>
-<p>為了減少這方面的不方便，ubuntu上有個黏貼管理的程式-<strong>xclip</strong></p>
-<h3>安裝</h3>
-<div class="highlight"><pre><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">xclip</span>
-</pre></div>
-
-
-<p>or</p>
-<p>前往<a href="http://sourceforge.net/projects/xclip/">網站</a>下載</p>
-<h3>用法</h3>
-<h4>終端機內</h4>
-<p>將檔案pipe到終端機的buffer內，</p>
-<div class="highlight"><pre><span class="n">cat</span> <span class="n">my_file</span><span class="p">.</span><span class="n">md</span> <span class="o">|</span><span class="n">xclip</span>
-</pre></div>
-
-
-<p>如此會將需要複製的內容複製到x buffer內，等待下次需要使用的時候</p>
-<div class="highlight"><pre><span class="n">xclip</span> <span class="o">-</span><span class="n">o</span>
-</pre></div>
-
-
-<p>可以配合其他功能使用，例如：</p>
-<p>丟到另外一份檔案中</p>
-<div class="highlight"><pre><span class="n">xclip</span> <span class="o">-</span><span class="n">o</span> <span class="o">&gt;</span><span class="n">output</span><span class="p">.</span><span class="n">md</span>
-</pre></div>
-
-
-<p>使用grep尋找行內關鍵字</p>
-<div class="highlight"><pre><span class="n">xclip</span> <span class="o">-</span><span class="n">o</span> <span class="o">|</span><span class="n">grep</span> <span class="o">^</span><span class="n">happy</span>
-</pre></div>
-
-
-<h4>如果是想要儲存在GUI的暫存中</h4>
-<div class="highlight"><pre><span class="n">cat</span> <span class="n">my_file ...</span></pre></div> </div><!-- /.entry-content -->
-
-								<div class="medium primary btn"><a href="/xclip-hao-yong-de-terminal-filejian-tie-gong-ju.html" rel="bookmark" title="Permalink to xclip-好用的terminal file剪貼工具">Read more <i class="icon-arrow-right"></i></a></div>
-
-
-
-								<div class="row tag-row">
-										<span>Tagged as : </span>
-											<a class="danger label" href="/tag/xclip.html">xclip</a>
-											<a class="danger label" href="/tag/ubuntu.html">ubuntu</a>
-								</div>
-
-
-
-				        </article></li>
-				        <li><article class="hentry">
+								        <li><article class="hentry">
 				                <header> <h2 class="entry-title"><a href="/setting-django-on-apache-server.html" rel="bookmark" title="Permalink to setting django on apache server">setting django on apache server</a></h2> </header>
 				                <footer class="post-info">
 				                    <abbr class="published" title="2013-08-17T23:50:00"> Sat 17 August 2013 </abbr>
-<address class="vcard author">By <a class="url fn" href="/author/lucaswei.html">LucasWei</a></address>				                </footer><!-- /.post-info -->
+				                    <address class="vcard author">By <a class="url fn" href="/author/lucaswei.html">LucasWei</a></address>				                </footer><!-- /.post-info -->
 				                <div class="entry-content"> <p>如果有在ubuntu上架設過LAMP的應該都知道，其實就是幾個指令，設定好密碼，還可以裝個phpmyadmin來管理資料庫，他的方便性大大降低了他的門檻，本著如此方便的精神，我覺得「安裝Django應該也很簡單吧？」就開始這段錯誤的過程，因為python不算是native支援網頁顯示的，使用一些module，或是使用以前CGI的方式來讓apache驅動他，外加上Django其實是包好好的Framework，所以在設定上就有這麼不人性點。所以，經過這麼多波折，我決定把這些過程記錄下來XD。</p>
 <h3>環境設定</h3>
 <p>首先，你需要
@@ -186,19 +96,19 @@ git ...
 
 
 								<div class="row tag-row">
-										<span>Tagged as : </span>
-											<a class="danger label" href="/tag/django.html">Django</a>
-											<a class="danger label" href="/tag/ubuntu.html">Ubuntu</a>
-								</div>
+																			<span>Tagged as : </span>
+																					<a class="danger label" href="/tag/django.html">Django</a>
+																					<a class="danger label" href="/tag/ubuntu.html">Ubuntu</a>
+																											</div>
 
 
 
 				        </article></li>
-				        <li><article class="hentry">
+								        <li><article class="hentry">
 				                <header> <h2 class="entry-title"><a href="/djangoji-ben-jie-shao.html" rel="bookmark" title="Permalink to django基本介紹">django基本介紹</a></h2> </header>
 				                <footer class="post-info">
 				                    <abbr class="published" title="2013-08-17T23:49:00"> Sat 17 August 2013 </abbr>
-<address class="vcard author">By <a class="url fn" href="/author/lucaswei.html">LucasWei</a></address>				                </footer><!-- /.post-info -->
+				                    <address class="vcard author">By <a class="url fn" href="/author/lucaswei.html">LucasWei</a></address>				                </footer><!-- /.post-info -->
 				                <div class="entry-content"> <p>趁著專題結束，趕快把Django的內容寫下一些紀錄，方便自己以後要用的時候可以查找，也因為雖然他的文件很完善了XD，但是因為是英文比較難閱讀，而且也需要許多實作來驗證想法，因此想要寫些筆記把心得跟細節記錄下來。</p>
 <p>需要知道Django在Ubuntu上如何安裝與基本的運行，請參照<a href="http://lucaswei.blogspot.tw/2012/01/ubuntu-django.html">這篇</a></p>
 <h2>首先</h2>
@@ -234,19 +144,19 @@ git ...
 
 
 								<div class="row tag-row">
-										<span>Tagged as : </span>
-											<a class="danger label" href="/tag/django.html">Django</a>
-											<a class="danger label" href="/tag/ubuntu.html">Ubuntu</a>
-								</div>
+																			<span>Tagged as : </span>
+																					<a class="danger label" href="/tag/django.html">Django</a>
+																					<a class="danger label" href="/tag/ubuntu.html">Ubuntu</a>
+																											</div>
 
 
 
 				        </article></li>
-				        <li><article class="hentry">
+								        <li><article class="hentry">
 				                <header> <h2 class="entry-title"><a href="/sql-prepare-statement.html" rel="bookmark" title="Permalink to SQL prepare statement">SQL prepare statement</a></h2> </header>
 				                <footer class="post-info">
 				                    <abbr class="published" title="2013-08-17T23:49:00"> Sat 17 August 2013 </abbr>
-<address class="vcard author">By <a class="url fn" href="/author/lucaswei.html">LucasWei</a></address>				                </footer><!-- /.post-info -->
+				                    <address class="vcard author">By <a class="url fn" href="/author/lucaswei.html">LucasWei</a></address>				                </footer><!-- /.post-info -->
 				                <div class="entry-content"> <p>今天在寫程式的時候意外的看到一段SQL  </p>
 
 <pre><code>    SELECT token FROM oauth_tokens WHERE userID = ? LIMIT 1
@@ -272,70 +182,71 @@ git ...
 
 
 								<div class="row tag-row">
-										<span>Tagged as : </span>
-											<a class="danger label" href="/tag/sql.html">SQL</a>
-											<a class="danger label" href="/tag/ubuntu.html">Ubuntu</a>
-								</div>
+																			<span>Tagged as : </span>
+																					<a class="danger label" href="/tag/sql.html">SQL</a>
+																					<a class="danger label" href="/tag/ubuntu.html">Ubuntu</a>
+																											</div>
 
 
 
 				        </article></li>
-				</ol><!-- /#posts-list -->
+								</ol><!-- /#posts-list -->
 
         </div><!-- /.eleven.columns -->
         
-<div class="three columns">
+     <div class="three columns">
 
 <h4>Pages</h4>
 
  <ul>
-      <li><a href="/pages/about-me.html">About Me</a></li>
-  </ul>
+              <li><a href="/pages/about-me.html">About Me</a></li>
+        </ul>
 
 <h4>Categories</h4>
 <ul>
-		<li><a href="/category/blogging.html">blogging</a></li>
-		<li><a href="/category/git.html">git</a></li>
-		<li><a href="/category/php.html">php</a></li>
-		<li><a href="/category/python.html">Python</a></li>
-		<li><a href="/category/sql.html">SQL</a></li>
-		<li><a href="/category/tool.html">Tool</a></li>
-</ul>
+			<li><a href="/category/python.html">Python</a></li>
+			<li><a href="/category/sql.html">SQL</a></li>
+			<li><a href="/category/tool.html">Tool</a></li>
+			<li><a href="/category/blogging.html">blogging</a></li>
+			<li><a href="/category/git.html">git</a></li>
+			<li><a href="/category/php.html">php</a></li>
+	</ul>
 
 
 <h4>Tags</h4>
 	<ul>
-	    <li class="tag-4"><a href="/tag/xclip.html">xclip</a></li>
-	    <li class="tag-1"><a href="/tag/ubuntu.html">ubuntu</a></li>
-	    <li class="tag-4"><a href="/tag/codeigniter.html">codeigniter</a></li>
-	    <li class="tag-2"><a href="/tag/django.html">Django</a></li>
-	    <li class="tag-4"><a href="/tag/web-framework.html">web framework</a></li>
-	    <li class="tag-4"><a href="/tag/php.html">php</a></li>
-	    <li class="tag-4"><a href="/tag/python.html">python</a></li>
-	    <li class="tag-4"><a href="/tag/git.html">git</a></li>
-	    <li class="tag-4"><a href="/tag/sql.html">SQL</a></li>
-	    <li class="tag-4"><a href="/tag/pelican.html">pelican</a></li>
-</ul>
+		    <li class="tag-4"><a href="/tag/php.html">php</a></li>
+		    <li class="tag-4"><a href="/tag/git.html">git</a></li>
+		    <li class="tag-4"><a href="/tag/sql.html">SQL</a></li>
+		    <li class="tag-2"><a href="/tag/django.html">Django</a></li>
+		    <li class="tag-4"><a href="/tag/web-framework.html">web framework</a></li>
+		    <li class="tag-1"><a href="/tag/ubuntu.html">Ubuntu</a></li>
+		    <li class="tag-4"><a href="/tag/codeigniter.html">codeigniter</a></li>
+		    <li class="tag-4"><a href="/tag/pelican.html">pelican</a></li>
+		    <li class="tag-4"><a href="/tag/xclip.html">xclip</a></li>
+		    <li class="tag-2"><a href="/tag/ubuntu.html">ubuntu</a></li>
+		    <li class="tag-4"><a href="/tag/python.html">python</a></li>
+	</ul>
 
 <nav class="widget">
   <h4>Links</h4>
   <ul>
-  </ul>
+    </ul>
 </nav>
 
 <nav class="widget">
   <h4>Social</h4>
   <ul>
-    <li><a href="http://www.plurk.com/lucas0412">Plurk</a></li>
-    <li><a href="https://github.com/lucaswei">Github</a></li>
-  </ul>
+      <li><a href="http://www.plurk.com/lucas0412">Plurk</a></li>
+      <li><a href="https://github.com/lucaswei">Github</a></li>
+    </ul>
 </nav>
 
 </div> </div><!-- /.row -->
 
 <p class="paginator">
-    Page 1 / 1
-</p>
+        Page 1 / 1
+    </p>
 </section><!-- /#content -->
 
             </div><!-- /.row -->
@@ -361,11 +272,11 @@ git ...
                 <div class="row">
                     <ul class="socbtns">
 
-                        <li><div class="btn primary"><a href="https://github.com/lucaswei/lucaswei.github.io" target="_blank">Github</a></div></li>
-
-
-
-
+                                                <li><div class="btn primary"><a href="https://github.com/lucaswei/lucaswei.github.io" target="_blank">Github</a></div></li>
+                        
+                        
+                        
+                        
                     </ul>
                 </div>
             </div>
@@ -374,7 +285,7 @@ git ...
         </div>
 
 
-<script type="text/javascript">
+        <script type="text/javascript">
     var disqus_shortname = 'lucasweisblog';
     (function () {
         var s = document.createElement('script'); s.async = true;
