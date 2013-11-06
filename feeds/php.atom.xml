@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Lucas's 部落格</title><link href="/" rel="alternate"></link><link href="/feeds/php.atom.xml" rel="self"></link><id>/</id><updated>2013-10-10T02:07:00+08:00</updated><entry><title>「筆記」Codeigniter使用心得</title><link href="/bi-ji-codeignitershi-yong-xin-de.html" rel="alternate"></link><updated>2013-10-10T02:07:00+08:00</updated><author><name>LucasWei</name></author><id>tag:,2013-10-10:bi-ji-codeignitershi-yong-xin-de.html</id><summary type="html">&lt;p&gt;&lt;img alt="codeigniter logo" src="/static/images/ci_logo_flame.jpg" /&gt;&lt;/p&gt;
+&lt;p&gt;使用php手刻過許多專案過後，會嘗試將自己的程式碼模組化，從Routing自己的URL之外，也嘗試使用MVC架構來分離自己的程式，不過後來因為程式碼散亂，所以也寫了一個自己的Loader搭配Query string，
+來引導資料流向自己預設的function內，但是當寫到一定規模後，資料的流向會變得很不好管理，因此新生了&lt;strong&gt;撰寫物件&lt;/strong&gt;將資料集中管理，配送的概念，不過到這邊的時候就沒有自己動手撰寫程式碼了，
+開始研究現有比較熱門的&lt;a href="http://en.wikipedia.org/wiki/Web_application_framework"&gt;web framework&lt;/a&gt;，可以先理解framework的設計理念，並且進一部研究原始碼，減少自己摸索過程嘗試的錯誤，而且有些問題當你的系統與設計並沒有被很多人使用的時候，
+是沒有辦法被發現的。&lt;/p&gt;
+&lt;p&gt;於是趁著專題的時候摸索了Python的&lt;a href="https://www.djangoproject.com/"&gt;Django&lt;/a&gt;，但是因為時程的關係，當初的摸索只有到如何使用和調用其中的library，並沒有針對其中的架構，撰寫技巧有了太多的研究，
+但是當時就對於&lt;a href="http://en.wikipedia.org/wiki/Web_application_framework"&gt;web framework&lt;/a&gt;內，&lt;strong&gt;路徑的分配&lt;/strong&gt;，&lt;strong&gt;資料流的管理&lt;/strong&gt;，&lt;strong&gt;簡單易用的ORM管理&lt;/strong&gt;深深著迷，因此有要開發比較大型的專案，都會優先考慮使用&lt;a href="http://en.wikipedia.org/wiki/Web_application_framework"&gt;web framework&lt;/a&gt;而非純手刻，&lt;/p&gt;
+&lt;p&gt;之後因為有機會可以承接外面的網頁專案，因此研究了一下台灣現有的伺服器方案，可惜的是，方便非資訊背景自行使用的伺服器方案，大部分指支援php, MySQL, Apache，
+見於此，因此決定重新選用php當作基礎語言，去挑選&lt;a href="http://en.wikipedia.org/wiki/Web_application_framework"&gt;web framework&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;在挑選&lt;a href="http://en.wikipedia.org/wiki/Web_application_framework"&gt;web framework&lt;/a&gt;中，有幾個點是我當初挑選時候的考量：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;效能：如果一個&lt;a href="http://en.wikipedia.org/wiki/Web_application_framework"&gt;web framework&lt;/a&gt;的效能太差，當有大量的流量的時候，系統很容易因為資源不夠而當機。&lt;/li&gt;
+&lt;li&gt;文件齊全：慶幸的是，自己閱讀原文文件的能力還不算太差，所以不用擔心是否有中文文件可以參考，但是有些&lt;a href="http://en.wikipedia.org/wiki/Web_application_framework"&gt;web framework&lt;/a&gt;在社群中還是有被詬病文件不齊全的問題，考量學習成本，就不先考慮。&lt;/li&gt;
+&lt;li&gt;持續開發：使用open source有個缺點就是，如果有漏洞，很容易因為原始碼的暴露，而容易遭受攻擊；反之，也因為原始碼攤開在大家面前，如果有什麼安全問題可以馬上討論，修正，所以一個好的
+&lt;a href="http://en.wikipedia.org/wiki/Web_application_framework"&gt;web framework&lt;/a&gt;保持更新是很重要的。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;基於這些原因，當初挑選了幾個&lt;a href="http://en.wikipedia.org/wiki/Web_application_framework"&gt;web framework&lt;/a&gt;，最後挑選了&lt;a href="http://www.codeigniter.org.tw/"&gt;Codeigniter&lt;/a&gt;，當作第一個學習&lt;a href="http://en.wikipedia.org/wiki/Web_application_framework"&gt;web framework&lt;/a&gt;，主要原因是他是一個輕量，文件齊全，而且大家一致推薦容易學習的&lt;a href="http://en.wikipedia.org/wiki/Web_application_framework"&gt;web framework&lt;/a&gt;，
+除此之外，目前許多熱門的&lt;a href="http://en.wikipedia.org/wiki/Web_application_framework"&gt;web framework&lt;/a&gt;也是從&lt;a href="http://www.codeigniter.org.tw/"&gt;Codeigniter&lt;/a&gt; fork出來的，所以決定先學習他。&lt;/p&gt;
+&lt;p&gt;但是目前有轉換的打算，主要是架構上有些設計使用起來並不是非常的順手與喜愛，想嘗試使用其他現有的&lt;a href="http://en.wikipedia.org/wiki/Web_application_framework"&gt;web framework&lt;/a&gt;，並且想將這些時間的使用心得記錄下來，
+方便其他人在日後挑選時可以用來做參考，也歡迎一起討論&lt;a href="http://en.wikipedia.org/wiki/Web_application_framework"&gt;web framework&lt;/a&gt;的優劣。&lt;/p&gt;
+&lt;h4&gt;安裝&lt;/h4&gt;
+&lt;p&gt;&lt;a href="http://www.codeigniter.org.tw/"&gt;Codeigniter&lt;/a&gt;從官方網站下載下來以後，就是一個完整的應用程式資料夾，只要將他擺在網頁伺服器可以存取的路徑下，鍵入相對應的網址，就可以看到歡迎頁面，就安裝的方便性來說，
+這點是非常方便的，如果你的網站中不包含，資料庫的相依性，就可以輕鬆搬移。&lt;/p&gt;
+&lt;p&gt;但是相對的來說，如果涉及資料的搬移，除了搬動程式碼外，在佈署的時候需要另外，載入資料庫和表格，這點在來回開發佈署上面，是比較不方便的。&lt;/p&gt;
+&lt;h4&gt;MVC架構&lt;/h4&gt;
+&lt;p&gt;&lt;a href="http://www.codeigniter.org.tw/"&gt;Codeigniter&lt;/a&gt;採用MVC架構，可以漂亮的分離程式碼，整個URL request送到server端的時候，流程大約可以分成幾個步驟：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Routing：傳送近來的網址，都會先走過URL來決定，是否有&lt;strong&gt;預先設定好的路徑&lt;/strong&gt;或者是&lt;strong&gt;指定的controller&lt;/strong&gt;，否則就依照當初設定的規則。&lt;/li&gt;
+&lt;li&gt;Controller：簡單來說，是一個function，用來處理使用者傳來的資料，以及後面的邏輯:並且可以藉由相對硬的資料與行為，決定是否要調用Model和view。&lt;/li&gt;
+&lt;li&gt;Moder(if needed)：資料庫的架接界面，避開了以往再程式碼內下SQL query的過程，也把會使用到的操作行為獨立出來，達到&lt;a href="http://en.wikipedia.org/wiki/Code_reuse"&gt;code reuse&lt;/a&gt;的目的。&lt;/li&gt;
+&lt;li&gt;view(if needed)：通常是HTML和CSS的程式碼，其中可能會夾雜一些簡單的php邏輯判斷，主要用於接收結果，並且產生最後的HTML，並且送回。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;其實可以把這些模組想像成一個生產線，這樣就很好懂他們之間的關係，Routing就像總機，將不同的需求和客戶送往不同的部門(Controller)，如果涉及資料相關的處理，
+則需要通知公司負責管理資料的處室(Model)，當準備好資料後，再依照需求將結果呈現給客戶，如此可以完成一個服務鍊。&lt;/p&gt;
+&lt;p&gt;&lt;img alt="搬家" src="/static/images/mvc-architecture.png" /&gt;&lt;/p&gt;
+&lt;p&gt;除了架構清晰外，對於第一次使用&lt;a href="http://en.wikipedia.org/wiki/Web_application_framework"&gt;web framework&lt;/a&gt;的人來說也很容易上手，也不會有程式碼不知道擺在哪邊的問題。&lt;/p&gt;
+&lt;h4&gt;模組安裝&lt;/h4&gt;
+&lt;p&gt;在模組化的部份，就顯得出Codeigniter不足的部份，他假定所有的project都是針對單一目標去開發的，所以他只有區分出&lt;strong&gt;不同目的&lt;/strong&gt;的資料夾，
+而沒有針對每個功能的模組去設計，所以如果今天要架設一個&lt;a href="http://en.wikipedia.org/wiki/Content_management_system"&gt;CMS&lt;/a&gt;的網站，其中留言，會員，文章管理，可能很多系統都會用到，
+但是Codeigniter中卻沒有辦法透過搬移跟設定的方式安裝完成，這點在設計是蠻可惜的，反之&lt;a href="https://www.djangoproject.com/"&gt;Django&lt;/a&gt;有針對每個任務或者功能去模組化設計，
+程式碼的架構就顯得乾淨很多。&lt;/p&gt;
+&lt;h4&gt;Model&lt;/h4&gt;
+&lt;p&gt;&lt;a href="http://www.codeigniter.org.tw/"&gt;Codeigniter&lt;/a&gt;中，有針對操作資料庫的任務有額外獨立出數個檔案，可以歸類放在&lt;strong&gt;model&lt;/strong&gt;資料夾底下，負責資料庫的存取，
+而且預設有提供一個SQL程式撰寫的程式介面[Active Record][]，官方頁面有針對這個類別的用途有作&lt;a href="http://www.codeigniter.org.tw/user_guide/database/active_record.html"&gt;說明&lt;/a&gt;：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;CodeIgniter 使用一個 Active Record 資料庫模式的修改版本。
+這個模式允許資訊在你的資料庫中靠最少的程式被接收、新增與更新。
+在一些狀況下, 只需要一兩行的程式就足以執行資料庫動作。
+CodeIgniter 不需要每個資料表擁有他自己的類別檔案, 它取而代之提供一個更簡單的介面。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;他擁有的API在拼湊SQL語句的時候，可以透過一些簡單的function call避免一些打字上的錯誤，而且在程式碼的維護上更有語意，例如&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;&amp;lt;?php&lt;/span&gt;
+&lt;span class="nv"&gt;$data&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;array&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
+    &lt;span class="s1"&gt;&amp;#39;title&amp;#39;&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;My title&amp;#39;&lt;/span&gt; &lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s1"&gt;&amp;#39;name&amp;#39;&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;My Name&amp;#39;&lt;/span&gt; &lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s1"&gt;&amp;#39;date&amp;#39;&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;My date&amp;#39;&lt;/span&gt;
+&lt;span class="p"&gt;);&lt;/span&gt;
+
+&lt;span class="nv"&gt;$this&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="na"&gt;db&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="na"&gt;insert&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;mytable&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nv"&gt;$data&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+&lt;span class="c1"&gt;// 產生： INSERT INTO mytable (title, name, date) VALUES (&amp;#39;My title&amp;#39;, &amp;#39;My name&amp;#39;, &amp;#39;My date&amp;#39;)&lt;/span&gt;
+&lt;span class="cp"&gt;?&amp;gt;&lt;/span&gt;&lt;span class="x"&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;並且藉由呼叫自己在model中定義好的function，可以達到code reuse的目的。&lt;/p&gt;
+&lt;h4&gt;語法&lt;/h4&gt;
+&lt;p&gt;其實這點比較是個人感官問題，因為&lt;a href="http://www.codeigniter.org.tw/"&gt;Codeigniter&lt;/a&gt;在設計時，我想是可以集合網頁開發中常會使用的功能，藉以簡化這些繁瑣的程序，
+所以他提供了很多常會使用到的功能，都定義在library的資料夾中，不過我對於他調用library時的語法覺得比較不清楚，
+缺少了一點層級跟語意上的區別，例如：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;&amp;lt;?php&lt;/span&gt;
+&lt;span class="k"&gt;function&lt;/span&gt; &lt;span class="nf"&gt;index&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nv"&gt;$this&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="na"&gt;load&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="na"&gt;helper&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;array&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;form&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;url&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
+
+    &lt;span class="nv"&gt;$this&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="na"&gt;load&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="na"&gt;library&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;form_validation&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;$this&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="na"&gt;form_validation&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="na"&gt;run&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="k"&gt;FALSE&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="nv"&gt;$this&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="na"&gt;load&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="na"&gt;view&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;myform&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="k"&gt;else&lt;/span&gt;
+    &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="nv"&gt;$this&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="na"&gt;load&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="na"&gt;view&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;formsuccess&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="cp"&gt;?&amp;gt;&lt;/span&gt;&lt;span class="x"&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;的範例中，我就覺得他將所有library載入到&lt;code&gt;$this&lt;/code&gt;中，雖然可以避免重複載入跟提昇效能，可是對於library的載入使用&lt;code&gt;$this-&amp;gt;load-&amp;gt;library('form_validation')&lt;/code&gt;
+而在調用library的時候也是使用類似的語法&lt;code&gt;$this-&amp;gt;form_validation-&amp;gt;run()&lt;/code&gt;，會使人混淆，而且每次都要在前面加個前綴字總是讓人覺得麻煩_(也許是個人太龜毛)_
+相較之下，同樣是php的&lt;a href="http://laravel.com/"&gt;Laravel&lt;/a&gt;的語法就相對漂亮很多，而且編寫的時候很清楚&lt;strong&gt;就是在使用library&lt;/strong&gt;的感覺&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;&amp;lt;?php&lt;/span&gt;
+&lt;span class="k"&gt;echo&lt;/span&gt; &lt;span class="nx"&gt;Form&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="na"&gt;text&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;email&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;example@gmail.com&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="cp"&gt;?&amp;gt;&lt;/span&gt;&lt;span class="x"&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h4&gt;小結&lt;/h4&gt;
+&lt;p&gt;每款&lt;a href="http://en.wikipedia.org/wiki/Web_application_framework"&gt;web framework&lt;/a&gt;都有他開發出來背後的精神與目的，我們可以藉由多挑選多看來選擇自己適合的&lt;a href="http://en.wikipedia.org/wiki/Web_application_framework"&gt;web framework&lt;/a&gt;，
+目前使用Codeigniter開發了幾個專案，雖然他執行起來效率不錯，很多網站開發需要的功能都具備了，但是在開發速度跟可以維護，我覺得都是略險不足，
+我想在選擇的時候可以根據自己需要的目的來選擇&lt;a href="http://en.wikipedia.org/wiki/Web_application_framework"&gt;web framework&lt;/a&gt;，並且多比較多看，相信對於開發的品質跟效率會有很大的提昇。&lt;/p&gt;
+&lt;p&gt;而網誌內對於&lt;a href="http://www.codeigniter.org.tw/"&gt;Codeigniter&lt;/a&gt;使用的評價與意見都是自己使用下得來感覺，比較篇個人主觀意見，如果實際使用上和你有比較大的出入與不同的想法，
+還煩請留言討論 :)&lt;/p&gt;</summary><category term="php"></category><category term="codeigniter"></category><category term="web framework"></category></entry></feed>

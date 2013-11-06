@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+    <head>
+
+        <title>「筆記」Codeigniter使用心得</title>
+        <meta charset="utf-8" />
+        <link href="/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Lucas's 部落格 Full Atom Feed" />
+        <link href="/feeds/php.atom.xml" type="application/atom+xml" rel="alternate" title="Lucas's 部落格 Categories Atom Feed" />
+
+
+        <!-- Mobile viewport optimized: j.mp/bplateviewport -->
+        <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1">
+
+        <link rel="stylesheet" type="text/css" href="/theme/gumby.css" />
+        <link rel="stylesheet" type="text/css" href="/theme/style.css" />
+        <link rel="stylesheet" type="text/css" href="/theme/pygment.css" />
+
+        <script src="/theme/js/libs/modernizr-2.6.2.min.js"></script>
+
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-43272616-1', 'lucaswei.github.io');
+            ga('send', 'pageview');
+
+        </script>
+
+    </head>
+
+    <body id="index" class="home">
+<a href="https://github.com/lucaswei/lucaswei.github.io"><img style="position: absolute; top: 0px; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png" alt="Fork me on GitHub" /></a>
+
+        <div class="container">
+
+            <div class="row">
+
+                <header id="banner" class="body">
+                <h1><strong><a href="/">Lucas's 部落格</a></strong></h1><h3>Lucas's blogging space</h3>
+                </header><!-- /#banner -->
+
+                <div id="navigation" class="navbar row">
+                    <a href="#" gumby-trigger="#navigation &gt; ul" class="toggle"><i class="icon-menu"></i></a>
+
+                    <ul class="columns">
+                        <li><a href="/">Home</a></li>
+
+                        <li><a href="/pages/about-me.html">About Me</a></li>
+
+                    </ul>
+                </div>
+
+<section id="content" class="body">
+
+   <div class="row">
+        <div class="eleven columns">
+
+
+            <header>
+              <h2 class="entry-title">
+                <a href="/bi-ji-codeignitershi-yong-xin-de.html" rel="bookmark"
+                   title="Permalink to 「筆記」Codeigniter使用心得">「筆記」Codeigniter使用心得</a></h2>
+           
+            </header>
+            <footer class="post-info">
+              <abbr class="published" title="2013-10-10T02:07:00">
+                Thu 10 October 2013
+              </abbr>
+              <address class="vcard author">
+                By <a class="url fn" href="/author/lucaswei.html">LucasWei</a>
+              </address>
+            </footer><!-- /.post-info -->
+            <div class="entry-content">
+              <p><img alt="codeigniter logo" src="/static/images/ci_logo_flame.jpg" /></p>
+<p>使用php手刻過許多專案過後，會嘗試將自己的程式碼模組化，從Routing自己的URL之外，也嘗試使用MVC架構來分離自己的程式，不過後來因為程式碼散亂，所以也寫了一個自己的Loader搭配Query string，
+來引導資料流向自己預設的function內，但是當寫到一定規模後，資料的流向會變得很不好管理，因此新生了<strong>撰寫物件</strong>將資料集中管理，配送的概念，不過到這邊的時候就沒有自己動手撰寫程式碼了，
+開始研究現有比較熱門的<a href="http://en.wikipedia.org/wiki/Web_application_framework">web framework</a>，可以先理解framework的設計理念，並且進一部研究原始碼，減少自己摸索過程嘗試的錯誤，而且有些問題當你的系統與設計並沒有被很多人使用的時候，
+是沒有辦法被發現的。</p>
+<p>於是趁著專題的時候摸索了Python的<a href="https://www.djangoproject.com/">Django</a>，但是因為時程的關係，當初的摸索只有到如何使用和調用其中的library，並沒有針對其中的架構，撰寫技巧有了太多的研究，
+但是當時就對於<a href="http://en.wikipedia.org/wiki/Web_application_framework">web framework</a>內，<strong>路徑的分配</strong>，<strong>資料流的管理</strong>，<strong>簡單易用的ORM管理</strong>深深著迷，因此有要開發比較大型的專案，都會優先考慮使用<a href="http://en.wikipedia.org/wiki/Web_application_framework">web framework</a>而非純手刻，</p>
+<p>之後因為有機會可以承接外面的網頁專案，因此研究了一下台灣現有的伺服器方案，可惜的是，方便非資訊背景自行使用的伺服器方案，大部分指支援php, MySQL, Apache，
+見於此，因此決定重新選用php當作基礎語言，去挑選<a href="http://en.wikipedia.org/wiki/Web_application_framework">web framework</a>。</p>
+<p>在挑選<a href="http://en.wikipedia.org/wiki/Web_application_framework">web framework</a>中，有幾個點是我當初挑選時候的考量：</p>
+<ol>
+<li>效能：如果一個<a href="http://en.wikipedia.org/wiki/Web_application_framework">web framework</a>的效能太差，當有大量的流量的時候，系統很容易因為資源不夠而當機。</li>
+<li>文件齊全：慶幸的是，自己閱讀原文文件的能力還不算太差，所以不用擔心是否有中文文件可以參考，但是有些<a href="http://en.wikipedia.org/wiki/Web_application_framework">web framework</a>在社群中還是有被詬病文件不齊全的問題，考量學習成本，就不先考慮。</li>
+<li>持續開發：使用open source有個缺點就是，如果有漏洞，很容易因為原始碼的暴露，而容易遭受攻擊；反之，也因為原始碼攤開在大家面前，如果有什麼安全問題可以馬上討論，修正，所以一個好的
+<a href="http://en.wikipedia.org/wiki/Web_application_framework">web framework</a>保持更新是很重要的。</li>
+</ol>
+<p>基於這些原因，當初挑選了幾個<a href="http://en.wikipedia.org/wiki/Web_application_framework">web framework</a>，最後挑選了<a href="http://www.codeigniter.org.tw/">Codeigniter</a>，當作第一個學習<a href="http://en.wikipedia.org/wiki/Web_application_framework">web framework</a>，主要原因是他是一個輕量，文件齊全，而且大家一致推薦容易學習的<a href="http://en.wikipedia.org/wiki/Web_application_framework">web framework</a>，
+除此之外，目前許多熱門的<a href="http://en.wikipedia.org/wiki/Web_application_framework">web framework</a>也是從<a href="http://www.codeigniter.org.tw/">Codeigniter</a> fork出來的，所以決定先學習他。</p>
+<p>但是目前有轉換的打算，主要是架構上有些設計使用起來並不是非常的順手與喜愛，想嘗試使用其他現有的<a href="http://en.wikipedia.org/wiki/Web_application_framework">web framework</a>，並且想將這些時間的使用心得記錄下來，
+方便其他人在日後挑選時可以用來做參考，也歡迎一起討論<a href="http://en.wikipedia.org/wiki/Web_application_framework">web framework</a>的優劣。</p>
+<h4>安裝</h4>
+<p><a href="http://www.codeigniter.org.tw/">Codeigniter</a>從官方網站下載下來以後，就是一個完整的應用程式資料夾，只要將他擺在網頁伺服器可以存取的路徑下，鍵入相對應的網址，就可以看到歡迎頁面，就安裝的方便性來說，
+這點是非常方便的，如果你的網站中不包含，資料庫的相依性，就可以輕鬆搬移。</p>
+<p>但是相對的來說，如果涉及資料的搬移，除了搬動程式碼外，在佈署的時候需要另外，載入資料庫和表格，這點在來回開發佈署上面，是比較不方便的。</p>
+<h4>MVC架構</h4>
+<p><a href="http://www.codeigniter.org.tw/">Codeigniter</a>採用MVC架構，可以漂亮的分離程式碼，整個URL request送到server端的時候，流程大約可以分成幾個步驟：</p>
+<ul>
+<li>Routing：傳送近來的網址，都會先走過URL來決定，是否有<strong>預先設定好的路徑</strong>或者是<strong>指定的controller</strong>，否則就依照當初設定的規則。</li>
+<li>Controller：簡單來說，是一個function，用來處理使用者傳來的資料，以及後面的邏輯:並且可以藉由相對硬的資料與行為，決定是否要調用Model和view。</li>
+<li>Moder(if needed)：資料庫的架接界面，避開了以往再程式碼內下SQL query的過程，也把會使用到的操作行為獨立出來，達到<a href="http://en.wikipedia.org/wiki/Code_reuse">code reuse</a>的目的。</li>
+<li>view(if needed)：通常是HTML和CSS的程式碼，其中可能會夾雜一些簡單的php邏輯判斷，主要用於接收結果，並且產生最後的HTML，並且送回。</li>
+</ul>
+<p>其實可以把這些模組想像成一個生產線，這樣就很好懂他們之間的關係，Routing就像總機，將不同的需求和客戶送往不同的部門(Controller)，如果涉及資料相關的處理，
+則需要通知公司負責管理資料的處室(Model)，當準備好資料後，再依照需求將結果呈現給客戶，如此可以完成一個服務鍊。</p>
+<p><img alt="搬家" src="/static/images/mvc-architecture.png" /></p>
+<p>除了架構清晰外，對於第一次使用<a href="http://en.wikipedia.org/wiki/Web_application_framework">web framework</a>的人來說也很容易上手，也不會有程式碼不知道擺在哪邊的問題。</p>
+<h4>模組安裝</h4>
+<p>在模組化的部份，就顯得出Codeigniter不足的部份，他假定所有的project都是針對單一目標去開發的，所以他只有區分出<strong>不同目的</strong>的資料夾，
+而沒有針對每個功能的模組去設計，所以如果今天要架設一個<a href="http://en.wikipedia.org/wiki/Content_management_system">CMS</a>的網站，其中留言，會員，文章管理，可能很多系統都會用到，
+但是Codeigniter中卻沒有辦法透過搬移跟設定的方式安裝完成，這點在設計是蠻可惜的，反之<a href="https://www.djangoproject.com/">Django</a>有針對每個任務或者功能去模組化設計，
+程式碼的架構就顯得乾淨很多。</p>
+<h4>Model</h4>
+<p><a href="http://www.codeigniter.org.tw/">Codeigniter</a>中，有針對操作資料庫的任務有額外獨立出數個檔案，可以歸類放在<strong>model</strong>資料夾底下，負責資料庫的存取，
+而且預設有提供一個SQL程式撰寫的程式介面[Active Record][]，官方頁面有針對這個類別的用途有作<a href="http://www.codeigniter.org.tw/user_guide/database/active_record.html">說明</a>：</p>
+<blockquote>
+<p>CodeIgniter 使用一個 Active Record 資料庫模式的修改版本。
+這個模式允許資訊在你的資料庫中靠最少的程式被接收、新增與更新。
+在一些狀況下, 只需要一兩行的程式就足以執行資料庫動作。
+CodeIgniter 不需要每個資料表擁有他自己的類別檔案, 它取而代之提供一個更簡單的介面。</p>
+</blockquote>
+<p>他擁有的API在拼湊SQL語句的時候，可以透過一些簡單的function call避免一些打字上的錯誤，而且在程式碼的維護上更有語意，例如</p>
+<div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="nv">$data</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;My title&#39;</span> <span class="p">,</span>
+    <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;My Name&#39;</span> <span class="p">,</span>
+    <span class="s1">&#39;date&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;My date&#39;</span>
+<span class="p">);</span>
+
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">insert</span><span class="p">(</span><span class="s1">&#39;mytable&#39;</span><span class="p">,</span> <span class="nv">$data</span><span class="p">);</span>
+
+<span class="c1">// 產生： INSERT INTO mytable (title, name, date) VALUES (&#39;My title&#39;, &#39;My name&#39;, &#39;My date&#39;)</span>
+<span class="cp">?&gt;</span><span class="x"></span>
+</pre></div>
+
+
+<p>並且藉由呼叫自己在model中定義好的function，可以達到code reuse的目的。</p>
+<h4>語法</h4>
+<p>其實這點比較是個人感官問題，因為<a href="http://www.codeigniter.org.tw/">Codeigniter</a>在設計時，我想是可以集合網頁開發中常會使用的功能，藉以簡化這些繁瑣的程序，
+所以他提供了很多常會使用到的功能，都定義在library的資料夾中，不過我對於他調用library時的語法覺得比較不清楚，
+缺少了一點層級跟語意上的區別，例如：</p>
+<div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="k">function</span> <span class="nf">index</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load</span><span class="o">-&gt;</span><span class="na">helper</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="s1">&#39;form&#39;</span><span class="p">,</span> <span class="s1">&#39;url&#39;</span><span class="p">));</span>
+
+    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load</span><span class="o">-&gt;</span><span class="na">library</span><span class="p">(</span><span class="s1">&#39;form_validation&#39;</span><span class="p">);</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">form_validation</span><span class="o">-&gt;</span><span class="na">run</span><span class="p">()</span> <span class="o">==</span> <span class="k">FALSE</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load</span><span class="o">-&gt;</span><span class="na">view</span><span class="p">(</span><span class="s1">&#39;myform&#39;</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">else</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load</span><span class="o">-&gt;</span><span class="na">view</span><span class="p">(</span><span class="s1">&#39;formsuccess&#39;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="cp">?&gt;</span><span class="x"></span>
+</pre></div>
+
+
+<p>的範例中，我就覺得他將所有library載入到<code>$this</code>中，雖然可以避免重複載入跟提昇效能，可是對於library的載入使用<code>$this-&gt;load-&gt;library('form_validation')</code>
+而在調用library的時候也是使用類似的語法<code>$this-&gt;form_validation-&gt;run()</code>，會使人混淆，而且每次都要在前面加個前綴字總是讓人覺得麻煩_(也許是個人太龜毛)_
+相較之下，同樣是php的<a href="http://laravel.com/">Laravel</a>的語法就相對漂亮很多，而且編寫的時候很清楚<strong>就是在使用library</strong>的感覺</p>
+<div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="k">echo</span> <span class="nx">Form</span><span class="o">::</span><span class="na">text</span><span class="p">(</span><span class="s1">&#39;email&#39;</span><span class="p">,</span> <span class="s1">&#39;example@gmail.com&#39;</span><span class="p">);</span>
+<span class="cp">?&gt;</span><span class="x"></span>
+</pre></div>
+
+
+<h4>小結</h4>
+<p>每款<a href="http://en.wikipedia.org/wiki/Web_application_framework">web framework</a>都有他開發出來背後的精神與目的，我們可以藉由多挑選多看來選擇自己適合的<a href="http://en.wikipedia.org/wiki/Web_application_framework">web framework</a>，
+目前使用Codeigniter開發了幾個專案，雖然他執行起來效率不錯，很多網站開發需要的功能都具備了，但是在開發速度跟可以維護，我覺得都是略險不足，
+我想在選擇的時候可以根據自己需要的目的來選擇<a href="http://en.wikipedia.org/wiki/Web_application_framework">web framework</a>，並且多比較多看，相信對於開發的品質跟效率會有很大的提昇。</p>
+<p>而網誌內對於<a href="http://www.codeigniter.org.tw/">Codeigniter</a>使用的評價與意見都是自己使用下得來感覺，比較篇個人主觀意見，如果實際使用上和你有比較大的出入與不同的想法，
+還煩請留言討論 :)</p>
+            </div><!-- /.entry-content -->
+            <div class="comments">
+              <h3>Comments</h3>
+              <div id="disqus_thread"></div>
+              <script type="text/javascript">
+                var disqus_identifier = "bi-ji-codeignitershi-yong-xin-de.html";
+                (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = 'http://lucasweisblog.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+              </script>
+            </div>
+
+
+        </div><!-- /.eleven.columns -->
+        
+<div class="three columns">
+
+<h4>Pages</h4>
+
+ <ul>
+      <li><a href="/pages/about-me.html">About Me</a></li>
+  </ul>
+
+<h4>Categories</h4>
+<ul>
+		<li><a href="/category/blogging.html">blogging</a></li>
+		<li><a href="/category/git.html">git</a></li>
+		<li><a href="/category/php.html">php</a></li>
+		<li><a href="/category/python.html">Python</a></li>
+		<li><a href="/category/sql.html">SQL</a></li>
+		<li><a href="/category/tool.html">Tool</a></li>
+</ul>
+
+
+<h4>Tags</h4>
+	<ul>
+	    <li class="tag-4"><a href="/tag/xclip.html">xclip</a></li>
+	    <li class="tag-1"><a href="/tag/ubuntu.html">ubuntu</a></li>
+	    <li class="tag-4"><a href="/tag/codeigniter.html">codeigniter</a></li>
+	    <li class="tag-2"><a href="/tag/django.html">Django</a></li>
+	    <li class="tag-4"><a href="/tag/web-framework.html">web framework</a></li>
+	    <li class="tag-4"><a href="/tag/php.html">php</a></li>
+	    <li class="tag-4"><a href="/tag/python.html">python</a></li>
+	    <li class="tag-4"><a href="/tag/git.html">git</a></li>
+	    <li class="tag-4"><a href="/tag/sql.html">SQL</a></li>
+	    <li class="tag-4"><a href="/tag/pelican.html">pelican</a></li>
+</ul>
+
+<nav class="widget">
+  <h4>Links</h4>
+  <ul>
+  </ul>
+</nav>
+
+<nav class="widget">
+  <h4>Social</h4>
+  <ul>
+    <li><a href="http://www.plurk.com/lucas0412">Plurk</a></li>
+    <li><a href="https://github.com/lucaswei">Github</a></li>
+  </ul>
+</nav>
+
+</div> </div><!-- /.row -->
+
+
+</section>
+
+            </div><!-- /.row -->
+        </div><!-- /.container -->
+
+
+        <div class="container.nopad bg">
+
+
+            <footer id="credits" class="row">
+            <div class="seven columns left-center">
+
+                <address id="about" class="vcard body">
+                    Proudly powered by <a href="http://getpelican.com/">Pelican</a>,
+                    which takes great advantage of <a href="http://python.org">Python</a>.
+                    <br />
+                    Based on the <a target="_blank" href="http://gumbyframework.com">Gumby Framework</a>
+                </address>
+            </div>
+
+
+            <div class="seven columns">
+                <div class="row">
+                    <ul class="socbtns">
+
+                        <li><div class="btn primary"><a href="https://github.com/lucaswei/lucaswei.github.io" target="_blank">Github</a></div></li>
+
+
+
+
+                    </ul>
+                </div>
+            </div>
+            </footer>
+
+        </div>
+
+
+<script type="text/javascript">
+    var disqus_shortname = 'lucasweisblog';
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+        <script src="/theme/js/libs/jquery-1.9.1.min.js"></script>
+        <script src="/theme/js/libs/gumby.min.js"></script>
+        <script src="/theme/js/plugins.js"></script>
+        <script>
+            var links = document.links;
+
+            for (var i = 0, linksLength = links.length; i < linksLength; i++) {
+               if (links[i].hostname != window.location.hostname) {
+                   links[i].target = '_blank';
+               } 
+            }
+        </script>
+
+    </body>
+</html>
